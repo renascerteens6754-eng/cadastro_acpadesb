@@ -1,5 +1,5 @@
 gunicorn
-Flask
-Flask-cors
+flask
+flask-cors
 supabase
 httpx

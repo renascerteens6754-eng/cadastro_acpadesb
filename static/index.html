@@ -57,6 +57,7 @@
         .header-actions {
             display: flex;
             gap: 15px;
+            flex-wrap: wrap;
         }
 
         /* Botões */
@@ -143,6 +144,7 @@
             padding: 10px;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            flex-wrap: wrap;
         }
 
         .tab {
@@ -192,6 +194,7 @@
         .search-bar {
             display: flex;
             gap: 10px;
+            flex-wrap: wrap;
         }
 
         .search-bar input {
@@ -340,7 +343,8 @@
             font-weight: 500;
         }
 
-        .form-group input {
+        .form-group input,
+        .form-group select {
             width: 100%;
             padding: 12px 15px;
             border: 2px solid #e0e0e0;
@@ -349,7 +353,8 @@
             transition: border-color 0.3s ease;
         }
 
-        .form-group input:focus {
+        .form-group input:focus,
+        .form-group select:focus {
             outline: none;
             border-color: #667eea;
         }
@@ -470,6 +475,10 @@
                 padding: 10px 16px;
                 font-size: 14px;
             }
+
+            .tabs {
+                justify-content: center;
+            }
         }
 
         /* Estatísticas */
@@ -523,6 +532,9 @@
                 <button class="btn btn-primary" onclick="abrirModalAdolescente()">
                     ➕ Novo Adolescente
                 </button>
+                <button class="btn btn-info" onclick="abrirModalCongregacao()">
+                    ⛪ Nova Congregação
+                </button>
             </div>
         </div>
 
@@ -530,6 +542,7 @@
         <div class="tabs">
             <button class="tab active" onclick="mudarTab('criancas')">👶 Crianças</button>
             <button class="tab" onclick="mudarTab('adolescentes')">🧑 Adolescentes</button>
+            <button class="tab" onclick="mudarTab('congregacoes')">⛪ Congregações</button>
         </div>
 
         <!-- Painel Crianças -->
@@ -614,6 +627,45 @@
             </div>
         </div>
 
+        <!-- Painel Congregações -->
+        <div id="panel-congregacoes" class="panel" style="display: none;">
+            <div class="panel-header">
+                <h2>⛪ Lista de Congregações</h2>
+                <div class="search-bar">
+                    <input type="text" id="search-congregacoes" placeholder="Buscar por nome..." onkeyup="buscarCongregacoes()">
+                    <button class="btn btn-primary" onclick="abrirModalCongregacao()">➕ Nova Congregação</button>
+                </div>
+            </div>
+
+            <!-- Estatísticas -->
+            <div class="stats-cards">
+                <div class="stat-card">
+                    <h3 id="total-congregacoes">0</h3>
+                    <p>Total de Congregações</p>
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Cidade/Estado</th>
+                            <th>Pastor</th>
+                            <th>Telefone</th>
+                            <th>Email</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-congregacoes">
+                        <tr>
+                            <td colspan="6" style="text-align: center;">Carregando...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
         <!-- Rodapé com versão -->
         <div class="version-footer">
             Sistema de Cadastro v1.0 | Igreja
@@ -663,7 +715,9 @@
                 </div>
                 <div class="form-group">
                     <label>Congregação</label>
-                    <input type="text" id="crianca-congregacao">
+                    <select id="crianca-congregacao">
+                        <option value="">Selecione...</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label>Endereço</label>
@@ -720,7 +774,9 @@
                 </div>
                 <div class="form-group">
                     <label>Congregação</label>
-                    <input type="text" id="adolescente-congregacao">
+                    <select id="adolescente-congregacao">
+                        <option value="">Selecione...</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label>Endereço</label>
@@ -728,6 +784,55 @@
                 </div>
                 <div class="form-actions">
                     <button type="button" class="btn btn-danger" onclick="fecharModal('modal-adolescente')">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Congregação -->
+    <div id="modal-congregacao" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-congregacao-titulo">Nova Congregação</h2>
+                <button class="close-btn" onclick="fecharModal('modal-congregacao')">&times;</button>
+            </div>
+            <form id="form-congregacao">
+                <input type="hidden" id="congregacao-id">
+                <div class="form-group">
+                    <label>Nome da Congregação *</label>
+                    <input type="text" id="congregacao-nome" required>
+                </div>
+                <div class="form-group">
+                    <label>Endereço</label>
+                    <input type="text" id="congregacao-endereco">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Cidade</label>
+                        <input type="text" id="congregacao-cidade">
+                    </div>
+                    <div class="form-group">
+                        <label>Estado (UF)</label>
+                        <input type="text" id="congregacao-estado" maxlength="2" placeholder="SP">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Pastor Responsável</label>
+                    <input type="text" id="congregacao-pastor">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Telefone</label>
+                        <input type="text" id="congregacao-telefone" placeholder="(11) 99999-9999">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="congregacao-email" placeholder="contato@igreja.com">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-danger" onclick="fecharModal('modal-congregacao')">Cancelar</button>
                     <button type="submit" class="btn btn-primary">Salvar</button>
                 </div>
             </form>
@@ -773,6 +878,7 @@
         const API_URL = window.location.origin;
         let criancasList = [];
         let adolescentesList = [];
+        let congregacoesList = [];
 
         // ======================================================
         // INICIALIZAÇÃO
@@ -780,6 +886,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             carregarCriancas();
             carregarAdolescentes();
+            carregarCongregacoes();
         });
 
         // ======================================================
@@ -788,6 +895,7 @@
         function mudarTab(tab) {
             const panelCriancas = document.getElementById('panel-criancas');
             const panelAdolescentes = document.getElementById('panel-adolescentes');
+            const panelCongregacoes = document.getElementById('panel-congregacoes');
             const tabs = document.querySelectorAll('.tab');
 
             tabs.forEach(t => t.classList.remove('active'));
@@ -795,13 +903,21 @@
             if (tab === 'criancas') {
                 panelCriancas.style.display = 'block';
                 panelAdolescentes.style.display = 'none';
+                panelCongregacoes.style.display = 'none';
                 tabs[0].classList.add('active');
                 carregarCriancas();
-            } else {
+            } else if (tab === 'adolescentes') {
                 panelCriancas.style.display = 'none';
                 panelAdolescentes.style.display = 'block';
+                panelCongregacoes.style.display = 'none';
                 tabs[1].classList.add('active');
                 carregarAdolescentes();
+            } else if (tab === 'congregacoes') {
+                panelCriancas.style.display = 'none';
+                panelAdolescentes.style.display = 'none';
+                panelCongregacoes.style.display = 'block';
+                tabs[2].classList.add('active');
+                carregarCongregacoes();
             }
         }
 
@@ -830,6 +946,37 @@
             if (!data) return '';
             const d = new Date(data);
             return d.toLocaleDateString('pt-BR');
+        }
+
+        // ======================================================
+        // CARREGAR CONGREGAÇÕES NOS SELECTS
+        // ======================================================
+        async function carregarSelectCongregacoes() {
+            try {
+                const response = await fetch(`${API_URL}/congregacoes/`);
+                const congregacoes = await response.json();
+
+                const selectCrianca = document.getElementById('crianca-congregacao');
+                const selectAdolescente = document.getElementById('adolescente-congregacao');
+
+                [selectCrianca, selectAdolescente].forEach(select => {
+                    if (select) {
+                        const valorAtual = select.value;
+                        select.innerHTML = '<option value="">Selecione...</option>';
+                        congregacoes.forEach(cong => {
+                            const option = document.createElement('option');
+                            option.value = cong.nome;
+                            option.textContent = cong.nome;
+                            if (cong.nome === valorAtual) {
+                                option.selected = true;
+                            }
+                            select.appendChild(option);
+                        });
+                    }
+                });
+            } catch (error) {
+                console.error('Erro ao carregar congregações nos selects:', error);
+            }
         }
 
         // ======================================================
@@ -890,7 +1037,9 @@
             atualizarTabelaCriancas(filtradas);
         }
 
-        function abrirModalCrianca(id = null) {
+        async function abrirModalCrianca(id = null) {
+            await carregarSelectCongregacoes();
+
             const modal = document.getElementById('modal-crianca');
             const titulo = document.getElementById('modal-crianca-titulo');
             const form = document.getElementById('form-crianca');
@@ -1000,7 +1149,9 @@
             atualizarTabelaAdolescentes(filtrados);
         }
 
-        function abrirModalAdolescente(id = null) {
+        async function abrirModalAdolescente(id = null) {
+            await carregarSelectCongregacoes();
+
             const modal = document.getElementById('modal-adolescente');
             const titulo = document.getElementById('modal-adolescente-titulo');
             const form = document.getElementById('form-adolescente');
@@ -1053,6 +1204,110 @@
             } catch (error) {
                 console.error('Erro:', error);
                 mostrarNotificacao('Erro ao deletar adolescente', 'error');
+            }
+        }
+
+        // ======================================================
+        // CONGREGAÇÕES - CRUD
+        // ======================================================
+        async function carregarCongregacoes() {
+            try {
+                const response = await fetch(`${API_URL}/congregacoes/`);
+                congregacoesList = await response.json();
+                atualizarTabelaCongregacoes(congregacoesList);
+                atualizarEstatisticasCongregacoes();
+            } catch (error) {
+                console.error('Erro ao carregar congregações:', error);
+                mostrarNotificacao('Erro ao carregar congregações', 'error');
+            }
+        }
+
+        function atualizarTabelaCongregacoes(lista) {
+            const tbody = document.getElementById('tbody-congregacoes');
+
+            if (lista.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">Nenhuma congregação cadastrada</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = lista.map(cong => `
+                <tr>
+                    <td>${cong.nome || ''}</td>
+                    <td>${cong.cidade || '-'}/${cong.estado || '-'}</td>
+                    <td>${cong.pastor || '-'}</td>
+                    <td>${cong.telefone || '-'}</td>
+                    <td>${cong.email || '-'}</td>
+                    <td class="actions">
+                        <button class="btn-icon btn-edit" onclick="editarCongregacao(${cong.id})">✏️ Editar</button>
+                        <button class="btn-icon btn-delete" onclick="deletarCongregacao(${cong.id})">🗑️ Deletar</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function atualizarEstatisticasCongregacoes() {
+            document.getElementById('total-congregacoes').textContent = congregacoesList.length;
+        }
+
+        function buscarCongregacoes() {
+            const termo = document.getElementById('search-congregacoes').value.toLowerCase();
+            const filtradas = congregacoesList.filter(c =>
+                c.nome && c.nome.toLowerCase().includes(termo)
+            );
+            atualizarTabelaCongregacoes(filtradas);
+        }
+
+        function abrirModalCongregacao(id = null) {
+            const modal = document.getElementById('modal-congregacao');
+            const titulo = document.getElementById('modal-congregacao-titulo');
+            const form = document.getElementById('form-congregacao');
+
+            form.reset();
+            document.getElementById('congregacao-id').value = '';
+
+            if (id) {
+                titulo.textContent = 'Editar Congregação';
+                const cong = congregacoesList.find(c => c.id === id);
+                if (cong) {
+                    document.getElementById('congregacao-id').value = cong.id;
+                    document.getElementById('congregacao-nome').value = cong.nome || '';
+                    document.getElementById('congregacao-endereco').value = cong.endereco || '';
+                    document.getElementById('congregacao-cidade').value = cong.cidade || '';
+                    document.getElementById('congregacao-estado').value = cong.estado || '';
+                    document.getElementById('congregacao-pastor').value = cong.pastor || '';
+                    document.getElementById('congregacao-telefone').value = cong.telefone || '';
+                    document.getElementById('congregacao-email').value = cong.email || '';
+                }
+            } else {
+                titulo.textContent = 'Nova Congregação';
+            }
+
+            modal.classList.add('active');
+        }
+
+        function editarCongregacao(id) {
+            abrirModalCongregacao(id);
+        }
+
+        async function deletarCongregacao(id) {
+            if (!confirm('Tem certeza que deseja deletar esta congregação? As crianças e adolescentes vinculados NÃO serão deletados.')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/congregacoes/${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    mostrarNotificacao('Congregação deletada com sucesso!', 'success');
+                    carregarCongregacoes();
+                } else {
+                    throw new Error('Erro ao deletar');
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                mostrarNotificacao('Erro ao deletar congregação', 'error');
             }
         }
 
@@ -1138,6 +1393,45 @@
             } catch (error) {
                 console.error('Erro:', error);
                 mostrarNotificacao('Erro ao salvar adolescente', 'error');
+            }
+        });
+
+        document.getElementById('form-congregacao').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const id = document.getElementById('congregacao-id').value;
+            const data = {
+                nome: document.getElementById('congregacao-nome').value,
+                endereco: document.getElementById('congregacao-endereco').value,
+                cidade: document.getElementById('congregacao-cidade').value,
+                estado: document.getElementById('congregacao-estado').value.toUpperCase(),
+                pastor: document.getElementById('congregacao-pastor').value,
+                telefone: document.getElementById('congregacao-telefone').value,
+                email: document.getElementById('congregacao-email').value
+            };
+
+            try {
+                const url = id ? `${API_URL}/congregacoes/${id}` : `${API_URL}/congregacoes/`;
+                const method = id ? 'PUT' : 'POST';
+
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    mostrarNotificacao(id ? 'Congregação atualizada!' : 'Congregação cadastrada!', 'success');
+                    fecharModal('modal-congregacao');
+                    carregarCongregacoes();
+                } else {
+                    throw new Error('Erro ao salvar');
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                mostrarNotificacao('Erro ao salvar congregação', 'error');
             }
         });
 

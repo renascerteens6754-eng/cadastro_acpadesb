@@ -25,7 +25,7 @@ def ping():
 # Rota para servir o index.html
 @app.route('/')
 def index():
-    return send_from_directory('.', 'index.html')
+    return send_from_directory('static', 'index.html')
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))

@@ -22,6 +22,9 @@ def home():
 @app.get("/static/<path:filename>")
 def static_files(filename):
     return send_from_directory("static", filename)
+@app.route('/ping')
+def ping():
+    return {"status": "ok", "message": "Servidor rodando!"}
 
 
 if __name__ == "__main__":

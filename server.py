@@ -10,7 +10,7 @@ from blueprints.adolescentes import adolescentes_bp
 from blueprints.congregacoes import congregacoes_bp
 
 app = Flask(__name__, static_folder='static', static_url_path='')
-CORS(app, origins=["https://cadastro-acpadesb-4.onrender.com"])  # ← ALTERE AQUI
+CORS(app)  # ← ALTERE AQUI
 
 app.register_blueprint(criancas_bp)
 app.register_blueprint(adolescentes_bp)
@@ -18,7 +18,7 @@ app.register_blueprint(congregacoes_bp)
 
 @app.route('/')
 def index():
-    return send_from_directory(os.path.dirname(os.path.abspath(__file__)), 'index.html')
+    return send_from_directory('.', 'index.html')
 
 @app.route('/ping')
 def ping():

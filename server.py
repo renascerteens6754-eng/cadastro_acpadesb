@@ -45,6 +45,55 @@ def debug_env():
         "python_path": os.getenv("PYTHONPATH"),
         "port": os.getenv("PORT")
     }
+
+@app.route('/test-supabase-connection')
+def test_supabase_connection():
+    """Testa a conexão com Supabase"""
+    try:
+        from db_config import connect_db
+        
+        # Testa se as variáveis existem
+        url = os.getenv("SUPABASE_URL")
+        key = os.getenv("SUPABASE_KEY")
+        
+        resultado = {
+            "variaveis_existem": {
+                "SUPABASE_URL": bool(url),
+                "SUPABASE_KEY": bool(key)
+            },
+            "url_valor": url if url else "NÃO DEFINIDA",
+            "key_prefix": key[:30] + "..." if key else "NÃO DEFINIDA"
+        }
+        
+        # Tenta conectar
+        if url and key:
+            supabase = connect_db()
+            resultado["conexao"] = "✅ Cliente criado"
+            
+            # Tenta fazer uma consulta simples
+            try:
+                resp = supabase.table("adolescentes").select("*", count="exact").limit(1).execute()
+                resultado["consulta"] = {
+                    "sucesso": True,
+                    "total_registros": resp.count,
+                    "conseguiu_ler": True
+                }
+            except Exception as e:
+                resultado["consulta"] = {
+                    "sucesso": False,
+                    "erro": str(e)
+                }
+        else:
+            resultado["erro"] = "Variáveis de ambiente não configuradas"
+        
+        return resultado
+        
+    except Exception as e:
+        import traceback
+        return {
+            "erro": str(e),
+            "traceback": traceback.format_exc()
+        }, 500
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port, debug=True)

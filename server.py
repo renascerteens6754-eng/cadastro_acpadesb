@@ -30,6 +30,21 @@ def index():
 def ping():
     return {"status": "ok", "message": "Servidor rodando!"}
 
+@app.route('/debug-env')
+def debug_env():
+    """Mostra todas as variáveis de ambiente (sem expor a chave completa)"""
+    supabase_url = os.getenv("SUPABASE_URL")
+    supabase_key = os.getenv("SUPABASE_KEY")
+    
+    return {
+        "supabase_url_exists": bool(supabase_url),
+        "supabase_url_value": supabase_url[:50] + "..." if supabase_url else None,
+        "supabase_key_exists": bool(supabase_key),
+        "supabase_key_prefix": supabase_key[:20] + "..." if supabase_key else None,
+        "todas_variaveis": list(os.environ.keys()),  # Mostra nomes de todas as variáveis
+        "python_path": os.getenv("PYTHONPATH"),
+        "port": os.getenv("PORT")
+    }
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port, debug=True)

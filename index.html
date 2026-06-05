@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Cadastro - Adolescentes</title>
+    <title>Sistema de Cadastro - ACPADESB</title>
     <style>
         * {
             margin: 0;
@@ -44,6 +44,52 @@
             gap: 10px;
         }
 
+        /* Abas */
+        .tabs {
+            display: flex;
+            gap: 5px;
+            background: #f0f0f0;
+            padding: 5px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            padding: 12px 30px;
+            border: none;
+            background: transparent;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            color: #666;
+        }
+
+        .tab-btn.active {
+            background: #667eea;
+            color: white;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: #e0e0e0;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .btn {
             padding: 10px 20px;
             border: none;
@@ -68,6 +114,16 @@
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
 
+        .btn-success {
+            background: #48bb78;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #38a169;
+            transform: translateY(-2px);
+        }
+
         .btn-danger {
             background: #f56565;
             color: white;
@@ -77,6 +133,16 @@
             background: #e53e3e;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(245, 101, 101, 0.4);
+        }
+
+        .btn-warning {
+            background: #ed8936;
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #dd6b20;
+            transform: translateY(-2px);
         }
 
         .btn:disabled {
@@ -212,6 +278,14 @@
             background: #e53e3e;
         }
 
+        .btn-migrate {
+            background: #ed8936;
+        }
+
+        .btn-migrate:hover {
+            background: #dd6b20;
+        }
+
         .modal {
             display: none;
             position: fixed;
@@ -325,6 +399,10 @@
             background: #f56565;
         }
 
+        .notification.info {
+            background: #4299e1;
+        }
+
         @keyframes slideIn {
             from {
                 transform: translateX(100%);
@@ -358,6 +436,11 @@
                 padding: 8px 16px;
                 font-size: 14px;
             }
+
+            .tab-btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
@@ -365,42 +448,86 @@
     <div class="container">
         <!-- Cabeçalho -->
         <div class="header">
-            <h1>🧑 Cadastro de Adolescentes</h1>
-            <button class="btn btn-primary" onclick="abrirModal()">➕ Novo Adolescente</button>
+            <h1>📋 Sistema de Cadastro - ACPADESB</h1>
+            <div>
+                <button class="btn btn-primary" id="btnNovo" onclick="abrirModal()">➕ Novo Cadastro</button>
+            </div>
         </div>
 
-        <!-- Painel Principal -->
-        <div class="panel">
-            <div class="panel-header">
-                <h2>Lista de Adolescentes</h2>
-                <div class="search-bar">
-                    <input type="text" id="search" placeholder="Buscar por nome..." onkeyup="buscar()">
+        <!-- Abas -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('adolescentes')">🧑 Adolescentes</button>
+            <button class="tab-btn" onclick="switchTab('criancas')">🧒 Crianças</button>
+        </div>
+
+        <!-- Painel Adolescentes -->
+        <div id="tab-adolescentes" class="tab-content active">
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Lista de Adolescentes</h2>
+                    <div class="search-bar">
+                        <input type="text" id="searchAdolescentes" placeholder="Buscar por nome..." onkeyup="buscarAdolescentes()">
+                    </div>
+                </div>
+
+                <div class="stats-card">
+                    <h3 id="totalAdolescentes">0</h3>
+                    <p>Total de Adolescentes</p>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Data Nascimento</th>
+                                <th>Idade</th>
+                                <th>Congregação</th>
+                                <th>Contato</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbodyAdolescentes">
+                            <tr><td colspan="6" style="text-align: center;">Carregando...</td></tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+        </div>
 
-            <!-- Estatística -->
-            <div class="stats-card">
-                <h3 id="total">0</h3>
-                <p>Total de Adolescentes</p>
-            </div>
+        <!-- Painel Crianças -->
+        <div id="tab-criancas" class="tab-content">
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Lista de Crianças</h2>
+                    <div class="search-bar">
+                        <input type="text" id="searchCriancas" placeholder="Buscar por nome..." onkeyup="buscarCriancas()">
+                        <button class="btn btn-warning" onclick="migrarCriancas()" id="btnMigrar">🔄 Migrar para Adolescentes</button>
+                    </div>
+                </div>
 
-            <!-- Tabela -->
-            <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Data Nascimento</th>
-                            <th>Idade</th>
-                            <th>Congregação</th>
-                            <th>Contato</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbody">
-                        <tr><td colspan="6" style="text-align: center;">Carregando...</td></tr>
-                    </tbody>
-                </table>
+                <div class="stats-card">
+                    <h3 id="totalCriancas">0</h3>
+                    <p>Total de Crianças</p>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Data Nascimento</th>
+                                <th>Idade</th>
+                                <th>Congregação</th>
+                                <th>Contato</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbodyCriancas">
+                            <tr><td colspan="6" style="text-align: center;">Carregando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -409,11 +536,12 @@
     <div id="modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 id="modal-titulo">Novo Adolescente</h2>
+                <h2 id="modal-titulo">Novo Cadastro</h2>
                 <button class="close-btn" onclick="fecharModal()">&times;</button>
             </div>
             <form id="form">
                 <input type="hidden" id="id">
+                <input type="hidden" id="tipoAtual">
                 <div class="form-group">
                     <label>Nome Completo *</label>
                     <input type="text" id="nome" required>
@@ -463,24 +591,63 @@
     </div>
 
     <script>
-        const API_URL = "https://cadastro-acpadesb-4.onrender.com";
-        let lista = [];
+        // Configuração - detecta ambiente automaticamente
+        const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://127.0.0.1:5000'
+            : 'https://cadastro-acpadesb-4.onrender.com';
+        
+        let listaAdolescentes = [];
+        let listaCriancas = [];
+        let abaAtual = 'adolescentes';
 
-        document.addEventListener('DOMContentLoaded', carregar);
+        console.log("🔗 API_URL:", API_URL);
 
-        async function carregar() {
+        // ======================================================
+        // INICIALIZAÇÃO
+        // ======================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            carregarAdolescentes();
+            carregarCriancas();
+        });
+
+        // ======================================================
+        // FUNÇÕES DE ABA
+        // ======================================================
+        function switchTab(aba) {
+            abaAtual = aba;
+            
+            // Atualizar botões das abas
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            if (aba === 'adolescentes') {
+                document.querySelector('.tab-btn:first-child').classList.add('active');
+                document.getElementById('tab-adolescentes').classList.add('active');
+                document.getElementById('tab-criancas').classList.remove('active');
+                document.getElementById('btnNovo').innerHTML = '➕ Novo Adolescente';
+            } else {
+                document.querySelector('.tab-btn:last-child').classList.add('active');
+                document.getElementById('tab-criancas').classList.add('active');
+                document.getElementById('tab-adolescentes').classList.remove('active');
+                document.getElementById('btnNovo').innerHTML = '➕ Nova Criança';
+            }
+        }
+
+        // ======================================================
+        // CRUD ADOLESCENTES
+        // ======================================================
+        async function carregarAdolescentes() {
             try {
                 const response = await fetch(`${API_URL}/adolescentes/`);
-                lista = await response.json();
-                atualizarTabela();
-                document.getElementById('total').textContent = lista.length;
+                listaAdolescentes = await response.json();
+                atualizarTabelaAdolescentes();
+                document.getElementById('totalAdolescentes').textContent = listaAdolescentes.length;
             } catch (error) {
+                console.error('Erro ao carregar adolescentes:', error);
                 notificar('Erro ao carregar adolescentes', 'error');
             }
         }
 
-        function atualizarTabela(dados = lista) {
-            const tbody = document.getElementById('tbody');
+        function atualizarTabelaAdolescentes(dados = listaAdolescentes) {
+            const tbody = document.getElementById('tbodyAdolescentes');
             if (dados.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">Nenhum adolescente cadastrado</td></tr>';
                 return;
@@ -495,19 +662,66 @@
                         <td>${a.congregacao || '-'}</td>
                         <td>${a.contato || '-'}</td>
                         <td class="actions">
-                            <button class="btn-icon btn-edit" onclick="editar(${a.id})">✏️</button>
-                            <button class="btn-icon btn-delete" onclick="deletar(${a.id})">🗑️</button>
+                            <button class="btn-icon btn-edit" onclick="editar(${a.id}, 'adolescentes')">✏️</button>
+                            <button class="btn-icon btn-delete" onclick="deletar(${a.id}, 'adolescentes')">🗑️</button>
                         </td>
                     </tr>`;
             }).join('');
         }
 
-        function buscar() {
-            const termo = document.getElementById('search').value.toLowerCase();
-            const filtrados = lista.filter(a => a.nome && a.nome.toLowerCase().includes(termo));
-            atualizarTabela(filtrados);
+        function buscarAdolescentes() {
+            const termo = document.getElementById('searchAdolescentes').value.toLowerCase();
+            const filtrados = listaAdolescentes.filter(a => a.nome && a.nome.toLowerCase().includes(termo));
+            atualizarTabelaAdolescentes(filtrados);
         }
 
+        // ======================================================
+        // CRUD CRIANÇAS
+        // ======================================================
+        async function carregarCriancas() {
+            try {
+                const response = await fetch(`${API_URL}/criancas/`);
+                listaCriancas = await response.json();
+                atualizarTabelaCriancas();
+                document.getElementById('totalCriancas').textContent = listaCriancas.length;
+            } catch (error) {
+                console.error('Erro ao carregar crianças:', error);
+                notificar('Erro ao carregar crianças', 'error');
+            }
+        }
+
+        function atualizarTabelaCriancas(dados = listaCriancas) {
+            const tbody = document.getElementById('tbodyCriancas');
+            if (dados.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">Nenhuma criança cadastrada</td></tr>';
+                return;
+            }
+            tbody.innerHTML = dados.map(c => {
+                const idade = calcularIdade(c.data_nasc);
+                return `
+                    <tr>
+                        <td>${c.nome || ''}</td>
+                        <td>${formatarData(c.data_nasc)}</td>
+                        <td>${idade} anos</td>
+                        <td>${c.congregacao || '-'}</td>
+                        <td>${c.contato || '-'}</td>
+                        <td class="actions">
+                            <button class="btn-icon btn-edit" onclick="editar(${c.id}, 'criancas')">✏️</button>
+                            <button class="btn-icon btn-delete" onclick="deletar(${c.id}, 'criancas')">🗑️</button>
+                        </td>
+                    </tr>`;
+            }).join('');
+        }
+
+        function buscarCriancas() {
+            const termo = document.getElementById('searchCriancas').value.toLowerCase();
+            const filtrados = listaCriancas.filter(c => c.nome && c.nome.toLowerCase().includes(termo));
+            atualizarTabelaCriancas(filtrados);
+        }
+
+        // ======================================================
+        // FUNÇÕES GERAIS
+        // ======================================================
         function calcularIdade(dataNasc) {
             if (!dataNasc) return 0;
             const hoje = new Date();
@@ -518,53 +732,106 @@
             return idade;
         }
 
-       function formatarData(data) {
-    if (!data) return '';
-    const d = new Date(data + 'T12:00:00');
-    return d.toLocaleDateString('pt-BR');
-}
+        function formatarData(data) {
+            if (!data) return '';
+            const d = new Date(data + 'T12:00:00');
+            return d.toLocaleDateString('pt-BR');
+        }
 
-        function abrirModal(id = null) {
+        function abrirModal(id = null, tipo = null) {
             document.getElementById('form').reset();
             document.getElementById('id').value = '';
+            
+            const tipoAtual = tipo || abaAtual;
+            document.getElementById('tipoAtual').value = tipoAtual;
+            
             if (id) {
-                document.getElementById('modal-titulo').textContent = 'Editar Adolescente';
-                const a = lista.find(x => x.id === id);
-                if (a) {
-                    document.getElementById('id').value = a.id;
-                    document.getElementById('nome').value = a.nome || '';
-                    document.getElementById('data_nasc').value = a.data_nasc || '';
-                    document.getElementById('cpf').value = a.cpf || '';
-                    document.getElementById('rg').value = a.rg || '';
-                    document.getElementById('contato').value = a.contato || '';
-                    document.getElementById('nome_pai').value = a.nome_pai || '';
-                    document.getElementById('nome_mae').value = a.nome_mae || '';
-                    document.getElementById('congregacao').value = a.congregacao || '';
-                    document.getElementById('endereco').value = a.endereco || '';
+                document.getElementById('modal-titulo').textContent = tipoAtual === 'adolescentes' ? 'Editar Adolescente' : 'Editar Criança';
+                const item = tipoAtual === 'adolescentes' 
+                    ? listaAdolescentes.find(x => x.id === id)
+                    : listaCriancas.find(x => x.id === id);
+                    
+                if (item) {
+                    document.getElementById('id').value = item.id;
+                    document.getElementById('nome').value = item.nome || '';
+                    document.getElementById('data_nasc').value = item.data_nasc || '';
+                    document.getElementById('cpf').value = item.cpf || '';
+                    document.getElementById('rg').value = item.rg || '';
+                    document.getElementById('contato').value = item.contato || '';
+                    document.getElementById('nome_pai').value = item.nome_pai || '';
+                    document.getElementById('nome_mae').value = item.nome_mae || '';
+                    document.getElementById('congregacao').value = item.congregacao || '';
+                    document.getElementById('endereco').value = item.endereco || '';
                 }
             } else {
-                document.getElementById('modal-titulo').textContent = 'Novo Adolescente';
+                document.getElementById('modal-titulo').textContent = tipoAtual === 'adolescentes' ? 'Novo Adolescente' : 'Nova Criança';
             }
             document.getElementById('modal').classList.add('active');
         }
 
-        function editar(id) { abrirModal(id); }
-        function fecharModal() { document.getElementById('modal').classList.remove('active'); }
+        function editar(id, tipo) {
+            abrirModal(id, tipo);
+        }
 
-        async function deletar(id) {
-            if (!confirm('Tem certeza que deseja deletar este adolescente?')) return;
+        function fecharModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        async function deletar(id, tipo) {
+            if (!confirm(`Tem certeza que deseja deletar ${tipo === 'adolescentes' ? 'este adolescente' : 'esta criança'}?`)) return;
             try {
-                await fetch(`${API_URL}/adolescentes/${id}`, { method: 'DELETE' });
-                notificar('Adolescente deletado!', 'success');
-                carregar();
+                const endpoint = tipo === 'adolescentes' ? 'adolescentes' : 'criancas';
+                await fetch(`${API_URL}/${endpoint}/${id}`, { method: 'DELETE' });
+                notificar(`${tipo === 'adolescentes' ? 'Adolescente' : 'Criança'} deletado!`, 'success');
+                if (tipo === 'adolescentes') {
+                    carregarAdolescentes();
+                } else {
+                    carregarCriancas();
+                }
             } catch (error) {
                 notificar('Erro ao deletar', 'error');
             }
         }
 
+        // ======================================================
+        // MIGRAÇÃO
+        // ======================================================
+        async function migrarCriancas() {
+            if (!confirm('⚠️ Isso irá migrar todas as crianças com 12 anos ou mais para a lista de adolescentes.\n\nAs crianças migradas serão removidas da lista de crianças.\n\nDeseja continuar?')) return;
+            
+            try {
+                notificar('Processando migração...', 'info');
+                const response = await fetch(`${API_URL}/criancas/migrar-para-adolescentes`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                
+                const resultado = await response.json();
+                
+                if (resultado.status === 'ok') {
+                    notificar(`✅ ${resultado.mensagem}`, 'success');
+                    // Recarregar ambas as listas
+                    await carregarAdolescentes();
+                    await carregarCriancas();
+                } else {
+                    throw new Error(resultado.erro || 'Erro na migração');
+                }
+            } catch (error) {
+                console.error('Erro na migração:', error);
+                notificar('Erro ao migrar crianças: ' + error.message, 'error');
+            }
+        }
+
+        // ======================================================
+        // FORMULÁRIO
+        // ======================================================
         document.getElementById('form').addEventListener('submit', async function(e) {
             e.preventDefault();
+            
             const id = document.getElementById('id').value;
+            const tipo = document.getElementById('tipoAtual').value || abaAtual;
+            const endpoint = tipo === 'adolescentes' ? 'adolescentes' : 'criancas';
+            
             const data = {
                 nome: document.getElementById('nome').value,
                 data_nasc: document.getElementById('data_nasc').value,
@@ -576,21 +843,33 @@
                 congregacao: document.getElementById('congregacao').value,
                 endereco: document.getElementById('endereco').value
             };
+            
             try {
-                const url = id ? `${API_URL}/adolescentes/${id}` : `${API_URL}/adolescentes/`;
+                const url = id ? `${API_URL}/${endpoint}/${id}` : `${API_URL}/${endpoint}/`;
                 const method = id ? 'PUT' : 'POST';
+                
                 const response = await fetch(url, {
                     method,
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
                 });
+                
                 if (response.ok) {
-                    notificar(id ? 'Adolescente atualizado!' : 'Adolescente cadastrado!', 'success');
+                    notificar(id ? 'Registro atualizado!' : 'Registro cadastrado!', 'success');
                     fecharModal();
-                    carregar();
-                } else throw new Error('Erro ao salvar');
+                    
+                    if (tipo === 'adolescentes') {
+                        carregarAdolescentes();
+                    } else {
+                        carregarCriancas();
+                    }
+                } else {
+                    const erro = await response.text();
+                    throw new Error(`Erro ${response.status}: ${erro}`);
+                }
             } catch (error) {
-                notificar('Erro ao salvar', 'error');
+                console.error('Erro ao salvar:', error);
+                notificar('Erro ao salvar: ' + error.message, 'error');
             }
         });
 

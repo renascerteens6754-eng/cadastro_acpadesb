@@ -52,6 +52,7 @@
             padding: 5px;
             border-radius: 12px;
             margin-bottom: 20px;
+            flex-wrap: wrap;
         }
 
         .tab-btn {
@@ -278,14 +279,6 @@
             background: #e53e3e;
         }
 
-        .btn-migrate {
-            background: #ed8936;
-        }
-
-        .btn-migrate:hover {
-            background: #dd6b20;
-        }
-
         .modal {
             display: none;
             position: fixed;
@@ -308,7 +301,7 @@
             border-radius: 15px;
             padding: 30px;
             width: 90%;
-            max-width: 550px;
+            max-width: 650px;
             max-height: 90vh;
             overflow-y: auto;
             animation: slideIn 0.3s ease;
@@ -456,47 +449,13 @@
 
         <!-- Abas -->
         <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('adolescentes')">🧑 Adolescentes</button>
-            <button class="tab-btn" onclick="switchTab('criancas')">🧒 Crianças</button>
-        </div>
-
-        <!-- Painel Adolescentes -->
-        <div id="tab-adolescentes" class="tab-content active">
-            <div class="panel">
-                <div class="panel-header">
-                    <h2>Lista de Adolescentes</h2>
-                    <div class="search-bar">
-                        <input type="text" id="searchAdolescentes" placeholder="Buscar por nome..." onkeyup="buscarAdolescentes()">
-                    </div>
-                </div>
-
-                <div class="stats-card">
-                    <h3 id="totalAdolescentes">0</h3>
-                    <p>Total de Adolescentes</p>
-                </div>
-
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>Data Nascimento</th>
-                                <th>Idade</th>
-                                <th>Congregação</th>
-                                <th>Contato</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbodyAdolescentes">
-                            <tr><td colspan="6" style="text-align: center;">Carregando...</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            <button class="tab-btn active" onclick="switchTab('criancas')">🧒 Crianças</button>
+            <button class="tab-btn" onclick="switchTab('adolescentes')">🧑 Adolescentes</button>
+            <button class="tab-btn" onclick="switchTab('congregacoes')">⛪ Congregações</button>
         </div>
 
         <!-- Painel Crianças -->
-        <div id="tab-criancas" class="tab-content">
+        <div id="tab-criancas" class="tab-content active">
             <div class="panel">
                 <div class="panel-header">
                     <h2>Lista de Crianças</h2>
@@ -530,60 +489,184 @@
                 </div>
             </div>
         </div>
+
+        <!-- Painel Adolescentes -->
+        <div id="tab-adolescentes" class="tab-content">
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Lista de Adolescentes</h2>
+                    <div class="search-bar">
+                        <input type="text" id="searchAdolescentes" placeholder="Buscar por nome..." onkeyup="buscarAdolescentes()">
+                    </div>
+                </div>
+
+                <div class="stats-card">
+                    <h3 id="totalAdolescentes">0</h3>
+                    <p>Total de Adolescentes</p>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Data Nascimento</th>
+                                <th>Idade</th>
+                                <th>Congregação</th>
+                                <th>Contato</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbodyAdolescentes">
+                            <tr><td colspan="6" style="text-align: center;">Carregando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Painel Congregações -->
+        <div id="tab-congregacoes" class="tab-content">
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Lista de Congregações</h2>
+                    <div class="search-bar">
+                        <input type="text" id="searchCongregacoes" placeholder="Buscar por nome..." onkeyup="buscarCongregacoes()">
+                    </div>
+                </div>
+
+                <div class="stats-card">
+                    <h3 id="totalCongregacoes">0</h3>
+                    <p>Total de Congregações</p>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Pastor</th>
+                                <th>Endereço</th>
+                                <th>Cidade/UF</th>
+                                <th>Telefone</th>
+                                <th>Email</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbodyCongregacoes">
+                            <tr><td colspan="7" style="text-align: center;">Carregando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Modal -->
-    <div id="modal" class="modal">
+    <!-- Modal para Pessoa (Criança/Adolescente) -->
+    <div id="modalPessoa" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 id="modal-titulo">Novo Cadastro</h2>
-                <button class="close-btn" onclick="fecharModal()">&times;</button>
+                <h2 id="modalPessoaTitulo">Novo Cadastro</h2>
+                <button class="close-btn" onclick="fecharModal('modalPessoa')">&times;</button>
             </div>
-            <form id="form">
-                <input type="hidden" id="id">
-                <input type="hidden" id="tipoAtual">
+            <form id="formPessoa">
+                <input type="hidden" id="pessoaId">
+                <input type="hidden" id="pessoaTipo">
                 <div class="form-group">
                     <label>Nome Completo *</label>
-                    <input type="text" id="nome" required>
+                    <input type="text" id="pessoaNome" required>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Data de Nascimento *</label>
-                        <input type="date" id="data_nasc" required>
+                        <input type="date" id="pessoaDataNasc" required>
                     </div>
                     <div class="form-group">
                         <label>CPF</label>
-                        <input type="text" id="cpf">
+                        <input type="text" id="pessoaCpf">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>RG</label>
-                        <input type="text" id="rg">
+                        <input type="text" id="pessoaRg">
                     </div>
                     <div class="form-group">
                         <label>Contato</label>
-                        <input type="text" id="contato">
+                        <input type="text" id="pessoaContato">
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Nome do Pai</label>
-                    <input type="text" id="nome_pai">
+                    <input type="text" id="pessoaNomePai">
                 </div>
                 <div class="form-group">
                     <label>Nome da Mãe</label>
-                    <input type="text" id="nome_mae">
+                    <input type="text" id="pessoaNomeMae">
                 </div>
                 <div class="form-group">
                     <label>Congregação</label>
-                    <input type="text" id="congregacao">
+                    <select id="pessoaCongregacao">
+                        <option value="">Selecione uma congregação...</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label>Endereço</label>
-                    <input type="text" id="endereco">
+                    <input type="text" id="pessoaEndereco">
                 </div>
                 <div class="form-actions">
-                    <button type="button" class="btn btn-danger" onclick="fecharModal()">Cancelar</button>
+                    <button type="button" class="btn btn-danger" onclick="fecharModal('modalPessoa')">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para Congregação -->
+    <div id="modalCongregacao" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalCongregacaoTitulo">Nova Congregação</h2>
+                <button class="close-btn" onclick="fecharModal('modalCongregacao')">&times;</button>
+            </div>
+            <form id="formCongregacao">
+                <input type="hidden" id="congregacaoId">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nome da Congregação *</label>
+                        <input type="text" id="congregacaoNome" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Pastor</label>
+                        <input type="text" id="congregacaoPastor">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Endereço</label>
+                    <input type="text" id="congregacaoEndereco">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Cidade</label>
+                        <input type="text" id="congregacaoCidade">
+                    </div>
+                    <div class="form-group">
+                        <label>Estado</label>
+                        <input type="text" id="congregacaoEstado" maxlength="2" placeholder="UF">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Telefone</label>
+                        <input type="text" id="congregacaoTelefone">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="congregacaoEmail">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-danger" onclick="fecharModal('modalCongregacao')">Cancelar</button>
                     <button type="submit" class="btn btn-primary">Salvar</button>
                 </div>
             </form>
@@ -595,10 +678,11 @@
         const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
             ? 'http://127.0.0.1:5000'
             : 'https://cadastro-acpadesb-4.onrender.com';
-        
+
         let listaAdolescentes = [];
         let listaCriancas = [];
-        let abaAtual = 'adolescentes';
+        let listaCongregacoes = [];
+        let abaAtual = 'criancas';
 
         console.log("🔗 API_URL:", API_URL);
 
@@ -606,28 +690,68 @@
         // INICIALIZAÇÃO
         // ======================================================
         document.addEventListener('DOMContentLoaded', () => {
-            carregarAdolescentes();
             carregarCriancas();
+            carregarAdolescentes();
+            carregarCongregacoes();
+            carregarSelectCongregacoes();
+            atualizarBotaoNovo();
         });
+
+        function atualizarBotaoNovo() {
+            const btnNovo = document.getElementById('btnNovo');
+            if (abaAtual === 'criancas') {
+                btnNovo.innerHTML = '➕ Nova Criança';
+                btnNovo.setAttribute('onclick', "abrirModalPessoa(null, 'criancas')");
+            } else if (abaAtual === 'adolescentes') {
+                btnNovo.innerHTML = '➕ Novo Adolescente';
+                btnNovo.setAttribute('onclick', "abrirModalPessoa(null, 'adolescentes')");
+            } else {
+                btnNovo.innerHTML = '➕ Nova Congregação';
+                btnNovo.setAttribute('onclick', "abrirModalCongregacao(null)");
+            }
+        }
 
         // ======================================================
         // FUNÇÕES DE ABA
         // ======================================================
         function switchTab(aba) {
             abaAtual = aba;
-            
-            // Atualizar botões das abas
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            if (aba === 'adolescentes') {
-                document.querySelector('.tab-btn:first-child').classList.add('active');
-                document.getElementById('tab-adolescentes').classList.add('active');
-                document.getElementById('tab-criancas').classList.remove('active');
-                document.getElementById('btnNovo').innerHTML = '➕ Novo Adolescente';
-            } else {
-                document.querySelector('.tab-btn:last-child').classList.add('active');
+
+            const botoes = document.querySelectorAll('.tab-btn');
+            botoes.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById('tab-criancas').classList.remove('active');
+            document.getElementById('tab-adolescentes').classList.remove('active');
+            document.getElementById('tab-congregacoes').classList.remove('active');
+
+            if (aba === 'criancas') {
+                botoes[0].classList.add('active');
                 document.getElementById('tab-criancas').classList.add('active');
-                document.getElementById('tab-adolescentes').classList.remove('active');
-                document.getElementById('btnNovo').innerHTML = '➕ Nova Criança';
+            } else if (aba === 'adolescentes') {
+                botoes[1].classList.add('active');
+                document.getElementById('tab-adolescentes').classList.add('active');
+            } else {
+                botoes[2].classList.add('active');
+                document.getElementById('tab-congregacoes').classList.add('active');
+            }
+
+            atualizarBotaoNovo();
+        }
+
+        // ======================================================
+        // CARREGAR SELECT DE CONGREGAÇÕES
+        // ======================================================
+        async function carregarSelectCongregacoes() {
+            try {
+                const response = await fetch(`${API_URL}/congregacoes/`);
+                const congregacoes = await response.json();
+                const select = document.getElementById('pessoaCongregacao');
+                select.innerHTML = '<option value="">Selecione uma congregação...</option>';
+                congregacoes.forEach(c => {
+                    select.innerHTML += `<option value="${c.nome}">${c.nome}</option>`;
+                });
+            } catch (error) {
+                console.error('Erro ao carregar congregações para select:', error);
             }
         }
 
@@ -662,7 +786,7 @@
                         <td>${a.congregacao || '-'}</td>
                         <td>${a.contato || '-'}</td>
                         <td class="actions">
-                            <button class="btn-icon btn-edit" onclick="editar(${a.id}, 'adolescentes')">✏️</button>
+                            <button class="btn-icon btn-edit" onclick="abrirModalPessoa(${a.id}, 'adolescentes')">✏️</button>
                             <button class="btn-icon btn-delete" onclick="deletar(${a.id}, 'adolescentes')">🗑️</button>
                         </td>
                     </tr>`;
@@ -706,7 +830,7 @@
                         <td>${c.congregacao || '-'}</td>
                         <td>${c.contato || '-'}</td>
                         <td class="actions">
-                            <button class="btn-icon btn-edit" onclick="editar(${c.id}, 'criancas')">✏️</button>
+                            <button class="btn-icon btn-edit" onclick="abrirModalPessoa(${c.id}, 'criancas')">✏️</button>
                             <button class="btn-icon btn-delete" onclick="deletar(${c.id}, 'criancas')">🗑️</button>
                         </td>
                     </tr>`;
@@ -717,6 +841,61 @@
             const termo = document.getElementById('searchCriancas').value.toLowerCase();
             const filtrados = listaCriancas.filter(c => c.nome && c.nome.toLowerCase().includes(termo));
             atualizarTabelaCriancas(filtrados);
+        }
+
+        // ======================================================
+        // CRUD CONGREGAÇÕES
+        // ======================================================
+        async function carregarCongregacoes() {
+            try {
+                const response = await fetch(`${API_URL}/congregacoes/`);
+                listaCongregacoes = await response.json();
+                atualizarTabelaCongregacoes();
+                document.getElementById('totalCongregacoes').textContent = listaCongregacoes.length;
+            } catch (error) {
+                console.error('Erro ao carregar congregações:', error);
+                notificar('Erro ao carregar congregações', 'error');
+            }
+        }
+
+        function atualizarTabelaCongregacoes(dados = listaCongregacoes) {
+            const tbody = document.getElementById('tbodyCongregacoes');
+            if (dados.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">Nenhuma congregação cadastrada</td></tr>';
+                return;
+            }
+            tbody.innerHTML = dados.map(c => `
+                <tr>
+                    <td>${c.nome || ''}</td>
+                    <td>${c.pastor || '-'}</td>
+                    <td>${c.endereco || '-'}</td>
+                    <td>${c.cidade || '-'}/${c.estado || '-'}</td>
+                    <td>${c.telefone || '-'}</td>
+                    <td>${c.email || '-'}</td>
+                    <td class="actions">
+                        <button class="btn-icon btn-edit" onclick="abrirModalCongregacao(${c.id})">✏️</button>
+                        <button class="btn-icon btn-delete" onclick="deletarCongregacao(${c.id})">🗑️</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function buscarCongregacoes() {
+            const termo = document.getElementById('searchCongregacoes').value.toLowerCase();
+            const filtrados = listaCongregacoes.filter(c => c.nome && c.nome.toLowerCase().includes(termo));
+            atualizarTabelaCongregacoes(filtrados);
+        }
+
+        async function deletarCongregacao(id) {
+            if (!confirm('Tem certeza que deseja deletar esta congregação?')) return;
+            try {
+                await fetch(`${API_URL}/congregacoes/${id}`, { method: 'DELETE' });
+                notificar('Congregação deletada!', 'success');
+                carregarCongregacoes();
+                carregarSelectCongregacoes();
+            } catch (error) {
+                notificar('Erro ao deletar', 'error');
+            }
         }
 
         // ======================================================
@@ -738,45 +917,73 @@
             return d.toLocaleDateString('pt-BR');
         }
 
-        function abrirModal(id = null, tipo = null) {
-            document.getElementById('form').reset();
-            document.getElementById('id').value = '';
-            
+        // ======================================================
+        // MODAL PESSOA (Criança/Adolescente)
+        // ======================================================
+        function abrirModalPessoa(id = null, tipo = null) {
+            document.getElementById('formPessoa').reset();
+            document.getElementById('pessoaId').value = '';
+
             const tipoAtual = tipo || abaAtual;
-            document.getElementById('tipoAtual').value = tipoAtual;
-            
+            document.getElementById('pessoaTipo').value = tipoAtual;
+
             if (id) {
-                document.getElementById('modal-titulo').textContent = tipoAtual === 'adolescentes' ? 'Editar Adolescente' : 'Editar Criança';
-                const item = tipoAtual === 'adolescentes' 
+                const item = tipoAtual === 'adolescentes'
                     ? listaAdolescentes.find(x => x.id === id)
                     : listaCriancas.find(x => x.id === id);
-                    
+
                 if (item) {
-                    document.getElementById('id').value = item.id;
-                    document.getElementById('nome').value = item.nome || '';
-                    document.getElementById('data_nasc').value = item.data_nasc || '';
-                    document.getElementById('cpf').value = item.cpf || '';
-                    document.getElementById('rg').value = item.rg || '';
-                    document.getElementById('contato').value = item.contato || '';
-                    document.getElementById('nome_pai').value = item.nome_pai || '';
-                    document.getElementById('nome_mae').value = item.nome_mae || '';
-                    document.getElementById('congregacao').value = item.congregacao || '';
-                    document.getElementById('endereco').value = item.endereco || '';
+                    document.getElementById('pessoaId').value = item.id;
+                    document.getElementById('pessoaNome').value = item.nome || '';
+                    document.getElementById('pessoaDataNasc').value = item.data_nasc || '';
+                    document.getElementById('pessoaCpf').value = item.cpf || '';
+                    document.getElementById('pessoaRg').value = item.rg || '';
+                    document.getElementById('pessoaContato').value = item.contato || '';
+                    document.getElementById('pessoaNomePai').value = item.nome_pai || '';
+                    document.getElementById('pessoaNomeMae').value = item.nome_mae || '';
+                    document.getElementById('pessoaCongregacao').value = item.congregacao || '';
+                    document.getElementById('pessoaEndereco').value = item.endereco || '';
                 }
+                document.getElementById('modalPessoaTitulo').textContent = tipoAtual === 'adolescentes' ? 'Editar Adolescente' : 'Editar Criança';
             } else {
-                document.getElementById('modal-titulo').textContent = tipoAtual === 'adolescentes' ? 'Novo Adolescente' : 'Nova Criança';
+                document.getElementById('modalPessoaTitulo').textContent = tipoAtual === 'adolescentes' ? 'Novo Adolescente' : 'Nova Criança';
             }
-            document.getElementById('modal').classList.add('active');
+            document.getElementById('modalPessoa').classList.add('active');
         }
 
-        function editar(id, tipo) {
-            abrirModal(id, tipo);
+        // ======================================================
+        // MODAL CONGREGAÇÃO
+        // ======================================================
+        function abrirModalCongregacao(id = null) {
+            document.getElementById('formCongregacao').reset();
+            document.getElementById('congregacaoId').value = '';
+
+            if (id) {
+                const item = listaCongregacoes.find(x => x.id === id);
+                if (item) {
+                    document.getElementById('congregacaoId').value = item.id;
+                    document.getElementById('congregacaoNome').value = item.nome || '';
+                    document.getElementById('congregacaoPastor').value = item.pastor || '';
+                    document.getElementById('congregacaoEndereco').value = item.endereco || '';
+                    document.getElementById('congregacaoCidade').value = item.cidade || '';
+                    document.getElementById('congregacaoEstado').value = item.estado || '';
+                    document.getElementById('congregacaoTelefone').value = item.telefone || '';
+                    document.getElementById('congregacaoEmail').value = item.email || '';
+                }
+                document.getElementById('modalCongregacaoTitulo').textContent = 'Editar Congregação';
+            } else {
+                document.getElementById('modalCongregacaoTitulo').textContent = 'Nova Congregação';
+            }
+            document.getElementById('modalCongregacao').classList.add('active');
         }
 
-        function fecharModal() {
-            document.getElementById('modal').classList.remove('active');
+        function fecharModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
         }
 
+        // ======================================================
+        // DELETAR PESSOA
+        // ======================================================
         async function deletar(id, tipo) {
             if (!confirm(`Tem certeza que deseja deletar ${tipo === 'adolescentes' ? 'este adolescente' : 'esta criança'}?`)) return;
             try {
@@ -798,21 +1005,20 @@
         // ======================================================
         async function migrarCriancas() {
             if (!confirm('⚠️ Isso irá migrar todas as crianças com 12 anos ou mais para a lista de adolescentes.\n\nAs crianças migradas serão removidas da lista de crianças.\n\nDeseja continuar?')) return;
-            
+
             try {
                 notificar('Processando migração...', 'info');
                 const response = await fetch(`${API_URL}/criancas/migrar-para-adolescentes`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' }
                 });
-                
+
                 const resultado = await response.json();
-                
+
                 if (resultado.status === 'ok') {
                     notificar(`✅ ${resultado.mensagem}`, 'success');
-                    // Recarregar ambas as listas
-                    await carregarAdolescentes();
                     await carregarCriancas();
+                    await carregarAdolescentes();
                 } else {
                     throw new Error(resultado.erro || 'Erro na migração');
                 }
@@ -823,46 +1029,89 @@
         }
 
         // ======================================================
-        // FORMULÁRIO
+        // FORMULÁRIO PESSOA
         // ======================================================
-        document.getElementById('form').addEventListener('submit', async function(e) {
+        document.getElementById('formPessoa').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
-            const id = document.getElementById('id').value;
-            const tipo = document.getElementById('tipoAtual').value || abaAtual;
+
+            const id = document.getElementById('pessoaId').value;
+            const tipo = document.getElementById('pessoaTipo').value;
             const endpoint = tipo === 'adolescentes' ? 'adolescentes' : 'criancas';
-            
+
             const data = {
-                nome: document.getElementById('nome').value,
-                data_nasc: document.getElementById('data_nasc').value,
-                cpf: document.getElementById('cpf').value,
-                rg: document.getElementById('rg').value,
-                contato: document.getElementById('contato').value,
-                nome_pai: document.getElementById('nome_pai').value,
-                nome_mae: document.getElementById('nome_mae').value,
-                congregacao: document.getElementById('congregacao').value,
-                endereco: document.getElementById('endereco').value
+                nome: document.getElementById('pessoaNome').value,
+                data_nasc: document.getElementById('pessoaDataNasc').value,
+                cpf: document.getElementById('pessoaCpf').value,
+                rg: document.getElementById('pessoaRg').value,
+                contato: document.getElementById('pessoaContato').value,
+                nome_pai: document.getElementById('pessoaNomePai').value,
+                nome_mae: document.getElementById('pessoaNomeMae').value,
+                congregacao: document.getElementById('pessoaCongregacao').value,
+                endereco: document.getElementById('pessoaEndereco').value
             };
-            
+
             try {
                 const url = id ? `${API_URL}/${endpoint}/${id}` : `${API_URL}/${endpoint}/`;
                 const method = id ? 'PUT' : 'POST';
-                
+
                 const response = await fetch(url, {
                     method,
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
                 });
-                
+
                 if (response.ok) {
                     notificar(id ? 'Registro atualizado!' : 'Registro cadastrado!', 'success');
-                    fecharModal();
-                    
+                    fecharModal('modalPessoa');
+
                     if (tipo === 'adolescentes') {
                         carregarAdolescentes();
                     } else {
                         carregarCriancas();
                     }
+                } else {
+                    const erro = await response.text();
+                    throw new Error(`Erro ${response.status}: ${erro}`);
+                }
+            } catch (error) {
+                console.error('Erro ao salvar:', error);
+                notificar('Erro ao salvar: ' + error.message, 'error');
+            }
+        });
+
+        // ======================================================
+        // FORMULÁRIO CONGREGAÇÃO
+        // ======================================================
+        document.getElementById('formCongregacao').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const id = document.getElementById('congregacaoId').value;
+
+            const data = {
+                nome: document.getElementById('congregacaoNome').value,
+                pastor: document.getElementById('congregacaoPastor').value,
+                endereco: document.getElementById('congregacaoEndereco').value,
+                cidade: document.getElementById('congregacaoCidade').value,
+                estado: document.getElementById('congregacaoEstado').value,
+                telefone: document.getElementById('congregacaoTelefone').value,
+                email: document.getElementById('congregacaoEmail').value
+            };
+
+            try {
+                const url = id ? `${API_URL}/congregacoes/${id}` : `${API_URL}/congregacoes/`;
+                const method = id ? 'PUT' : 'POST';
+
+                const response = await fetch(url, {
+                    method,
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    notificar(id ? 'Congregação atualizada!' : 'Congregação cadastrada!', 'success');
+                    fecharModal('modalCongregacao');
+                    carregarCongregacoes();
+                    carregarSelectCongregacoes();
                 } else {
                     const erro = await response.text();
                     throw new Error(`Erro ${response.status}: ${erro}`);
@@ -882,7 +1131,9 @@
         }
 
         window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) fecharModal();
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+            }
         }
     </script>
 </body>

@@ -3,6 +3,8 @@ from flask_cors import CORS
 import os
 from dotenv import load_dotenv
 
+from blueprints.usuarios import auth_bp
+
 # Só carrega .env se existir (local)
 if os.path.exists('.env'):
     load_dotenv()
@@ -35,6 +37,7 @@ app.register_blueprint(criancas_bp)
 app.register_blueprint(adolescentes_bp)
 app.register_blueprint(congregacoes_bp)
 
+app.register_blueprint(auth_bp)
 @app.route('/')
 def index():
     return send_from_directory('.', 'index.html')

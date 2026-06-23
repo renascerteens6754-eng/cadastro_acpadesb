@@ -636,6 +636,17 @@
                     <label>Senha (3 caracteres)</label>
                     <input type="password" id="loginPassword" placeholder="Digite sua senha (3 caracteres)" maxlength="3" required autocomplete="current-password">
                 </div>
+                <div class="form-group-login">
+                    <label>Departamento</label>
+                    <select id="loginDepartamento">
+                        <option value="">Selecione um departamento...</option>
+                        <option value="infantil">Infantil</option>
+                        <option value="adolescentes">Adolescentes</option>
+                    </select>
+                    <div style="font-size: 12px; color: #666; margin-top: 5px;">
+                        ⚠️ Apenas para usuários com perfil "Líder Regional"
+                    </div>
+                </div>
                 <button type="submit" class="btn-login">Entrar</button>
             </form>
             <div class="link-cadastro">
@@ -669,6 +680,17 @@
                     </select>
                 </div>
                 <div class="form-group-login">
+                    <label>Departamento *</label>
+                    <select id="regDepartamento" required>
+                        <option value="">Selecione um departamento...</option>
+                        <option value="infantil">Infantil</option>
+                        <option value="adolescentes">Adolescentes</option>
+                    </select>
+                    <div style="font-size: 12px; color: #666; margin-top: 5px;">
+                        ⚠️ Obrigatório para todos os perfis
+                    </div>
+                </div>
+                <div class="form-group-login">
                     <label>Senha (3 caracteres) *</label>
                     <input type="password" id="regPassword" placeholder="Exatamente 3 caracteres" maxlength="3" required>
                     <div class="password-hint">A senha deve ter exatamente 3 caracteres (letras e/ou números)</div>
@@ -693,6 +715,7 @@
                 <div class="user-info">
                     <span>👤 <span id="userName" class="user-name"></span></span>
                     <span>🔖 <span id="userPerfil"></span></span>
+                    <span>🏷️ <span id="userDepartamento" style="color: #667eea; font-weight: 600;"></span></span>
                     <button class="btn-logout" onclick="logout()">Sair</button>
                 </div>
                 <div>
@@ -939,6 +962,11 @@
             'outro': 'Outro'
         };
 
+        const departamentoDisplay = {
+            'infantil': '👶 Infantil',
+            'adolescentes': '🧑 Adolescentes'
+        };
+
         function mostrarRegistro() {
             document.getElementById('loginContainer').style.display = 'none';
             document.getElementById('registroContainer').style.display = 'flex';
@@ -957,6 +985,7 @@
 
             const username = document.getElementById('regUsername').value.trim();
             const perfil = document.getElementById('regPerfil').value;
+            const departamento = document.getElementById('regDepartamento').value;
             const password = document.getElementById('regPassword').value;
             const confirmar_senha = document.getElementById('regConfirmPassword').value;
 
@@ -965,6 +994,11 @@
 
             if (!username || username.length < 3) {
                 showRegistroError('Usuário deve ter pelo menos 3 caracteres');
+                return;
+            }
+
+            if (!departamento) {
+                showRegistroError('Selecione um departamento');
                 return;
             }
 
@@ -982,7 +1016,13 @@
                 const response = await fetch(`${API_URL}/auth/criar-conta`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password, confirmar_senha, perfil })
+                    body: JSON.stringify({
+                        username,
+                        password,
+                        confirmar_senha,
+                        perfil,
+                        departamento
+                    })
                 });
 
                 const data = await response.json();
@@ -1029,10 +1069,17 @@
 
         async function fazerLogin(username, password) {
             try {
+                const departamento = document.getElementById('loginDepartamento').value;
+
+                const body = { username, password };
+                if (departamento) {
+                    body.departamento = departamento;
+                }
+
                 const response = await fetch(`${API_URL}/auth/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password })
+                    body: JSON.stringify(body)
                 });
 
                 const data = await response.json();
@@ -1046,6 +1093,15 @@
                     document.getElementById('userName').textContent = usuarioAtual.username;
                     document.getElementById('userPerfil').textContent = perfilDisplay[usuarioAtual.perfil] || usuarioAtual.perfil;
 
+                    const deptEl = document.getElementById('userDepartamento');
+                    if (usuarioAtual.departamento) {
+                        deptEl.textContent = departamentoDisplay[usuarioAtual.departamento] || usuarioAtual.departamento;
+                        deptEl.style.display = 'inline';
+                    } else {
+                        deptEl.textContent = '';
+                        deptEl.style.display = 'none';
+                    }
+
                     showMainApp();
                     carregarTodosDados();
                     notificar(`Bem-vindo, ${usuarioAtual.username}!`, 'success');
@@ -1055,6 +1111,7 @@
                     return false;
                 }
             } catch (error) {
+                console.error('Erro no login:', error);
                 showLoginError('Erro ao conectar ao servidor');
                 return false;
             }
@@ -1095,6 +1152,16 @@
                     usuarioAtual = JSON.parse(localStorage.getItem('usuario') || '{}');
                     document.getElementById('userName').textContent = usuarioAtual.username || 'Usuário';
                     document.getElementById('userPerfil').textContent = perfilDisplay[usuarioAtual.perfil] || usuarioAtual.perfil;
+
+                    const deptEl = document.getElementById('userDepartamento');
+                    if (usuarioAtual.departamento) {
+                        deptEl.textContent = departamentoDisplay[usuarioAtual.departamento] || usuarioAtual.departamento;
+                        deptEl.style.display = 'inline';
+                    } else {
+                        deptEl.textContent = '';
+                        deptEl.style.display = 'none';
+                    }
+
                     showMainApp();
                     carregarTodosDados();
                     return true;

@@ -733,7 +733,7 @@
                                 </tr>
                             </thead>
                             <tbody id="tbodyCriancas">
-                                <tr><td colspan="6" style="text-align: center;">Carregando...</td</tr>
+                                <tr><td colspan="6" style="text-align: center;">Carregando...</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -763,10 +763,10 @@
                                     <th>Congregação</th>
                                     <th>Contato</th>
                                     <th>Ações</th>
-                                </td>
+                                </tr>
                             </thead>
                             <tbody id="tbodyAdolescentes">
-                                <tr><td colspan="6" style="text-align: center;">Carregando...</td</tr>
+                                <tr><td colspan="6" style="text-align: center;">Carregando...</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -787,7 +787,7 @@
                         <p>Total de Congregações</p>
                     </div>
                     <div class="table-wrapper">
-                        </table>
+                        <table>
                             <thead>
                                 <tr>
                                     <th>Nome</th>
@@ -800,7 +800,7 @@
                                 </tr>
                             </thead>
                             <tbody id="tbodyCongregacoes">
-                                <tr><td colspan="7" style="text-align: center;">Carregando...</td</tr>
+                                <tr><td colspan="7" style="text-align: center;">Carregando...</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -1179,7 +1179,7 @@
         function atualizarTabelaAdolescentes(dados = listaAdolescentes) {
             const tbody = document.getElementById('tbodyAdolescentes');
             if (dados.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">Nenhum adolescente cadastrado</td</tr>';
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">Nenhum adolescente cadastrado</td></tr>';
                 return;
             }
             tbody.innerHTML = dados.map(a => {
@@ -1220,7 +1220,7 @@
         function atualizarTabelaCriancas(dados = listaCriancas) {
             const tbody = document.getElementById('tbodyCriancas');
             if (dados.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">Nenhuma criança cadastrada</td</tr>';
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">Nenhuma criança cadastrada</td></tr>';
                 return;
             }
             tbody.innerHTML = dados.map(c => {
@@ -1261,7 +1261,7 @@
         function atualizarTabelaCongregacoes(dados = listaCongregacoes) {
             const tbody = document.getElementById('tbodyCongregacoes');
             if (dados.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">Nenhuma congregação cadastrada</td</tr>';
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">Nenhuma congregação cadastrada</td></tr>';
                 return;
             }
             tbody.innerHTML = dados.map(c => `

@@ -23,6 +23,205 @@
             margin: 0 auto;
         }
 
+        /* Tela de Login e Registro */
+        .login-container, .registro-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 9999;
+        }
+
+        .registro-container {
+            z-index: 9998;
+        }
+
+        .login-box, .registro-box {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-box h1, .registro-box h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .login-box .subtitle, .registro-box .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .logo {
+            text-align: center;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .form-group-login {
+            margin-bottom: 20px;
+        }
+
+        .form-group-login label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .form-group-login input, .form-group-login select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group-login input:focus, .form-group-login select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .password-hint {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .btn-login, .btn-registro {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-login:hover, .btn-registro:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .error-message {
+            background: #fed7d7;
+            color: #c53030;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 14px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .success-message {
+            background: #c6f6d5;
+            color: #22543d;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 14px;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .link-cadastro, .link-login {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .link-cadastro a, .link-login a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .link-cadastro a:hover, .link-login a:hover {
+            text-decoration: underline;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-info span {
+            color: #555;
+            font-size: 14px;
+        }
+
+        .user-info .user-name {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .btn-logout {
+            padding: 8px 15px;
+            background: #f56565;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-logout:hover {
+            background: #e53e3e;
+            transform: translateY(-1px);
+        }
+
+        /* Main App (inicialmente escondido) */
+        .main-app {
+            display: none;
+        }
+
+        .main-app.show {
+            display: block;
+        }
+
         .header {
             background: white;
             padding: 20px 25px;
@@ -44,7 +243,6 @@
             gap: 10px;
         }
 
-        /* Abas */
         .tabs {
             display: flex;
             gap: 5px;
@@ -115,13 +313,13 @@
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
 
-        .btn-success {
-            background: #48bb78;
+        .btn-warning {
+            background: #ed8936;
             color: white;
         }
 
-        .btn-success:hover {
-            background: #38a169;
+        .btn-warning:hover {
+            background: #dd6b20;
             transform: translateY(-2px);
         }
 
@@ -133,23 +331,6 @@
         .btn-danger:hover {
             background: #e53e3e;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(245, 101, 101, 0.4);
-        }
-
-        .btn-warning {
-            background: #ed8936;
-            color: white;
-        }
-
-        .btn-warning:hover {
-            background: #dd6b20;
-            transform: translateY(-2px);
-        }
-
-        .btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none !important;
         }
 
         .panel {
@@ -412,157 +593,223 @@
                 flex-direction: column;
                 text-align: center;
             }
-
             .search-bar {
                 width: 100%;
             }
-
             .search-bar input {
                 width: 100%;
             }
-
             .form-row {
                 grid-template-columns: 1fr;
             }
-
-            .btn {
-                padding: 8px 16px;
-                font-size: 14px;
-            }
-
             .tab-btn {
                 padding: 10px 20px;
                 font-size: 14px;
+            }
+            .user-info {
+                width: 100%;
+                justify-content: center;
+            }
+            .login-box, .registro-box {
+                margin: 20px;
+                padding: 30px 20px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Cabeçalho -->
-        <div class="header">
-            <h1>📋 Sistema de Cadastro - ACPADESB</h1>
-            <div>
-                <button class="btn btn-primary" id="btnNovo" onclick="abrirModal()">➕ Novo Cadastro</button>
+    <!-- Tela de Login -->
+    <div id="loginContainer" class="login-container">
+        <div class="login-box">
+            <div class="logo">🔐</div>
+            <h1>ACPADESB</h1>
+            <div class="subtitle">Sistema de Cadastro</div>
+
+            <div id="loginError" class="error-message"></div>
+
+            <form id="loginForm">
+                <div class="form-group-login">
+                    <label>Usuário</label>
+                    <input type="text" id="loginUsername" placeholder="Digite seu usuário" required autocomplete="username">
+                </div>
+                <div class="form-group-login">
+                    <label>Senha (3 caracteres)</label>
+                    <input type="password" id="loginPassword" placeholder="Digite sua senha (3 caracteres)" maxlength="3" required autocomplete="current-password">
+                </div>
+                <button type="submit" class="btn-login">Entrar</button>
+            </form>
+            <div class="link-cadastro">
+                Não tem uma conta? <a onclick="mostrarRegistro()">Criar conta gratuita</a>
             </div>
         </div>
+    </div>
 
-        <!-- Abas -->
-        <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('criancas')">🧒 Crianças</button>
-            <button class="tab-btn" onclick="switchTab('adolescentes')">🧑 Adolescentes</button>
-            <button class="tab-btn" onclick="switchTab('congregacoes')">⛪ Congregações</button>
-        </div>
+    <!-- Tela de Registro/Criar Conta -->
+    <div id="registroContainer" class="registro-container" style="display: none;">
+        <div class="registro-box">
+            <div class="logo">📝</div>
+            <h1>Criar Conta</h1>
+            <div class="subtitle">Preencha os dados para se cadastrar</div>
 
-        <!-- Painel Crianças -->
-        <div id="tab-criancas" class="tab-content active">
-            <div class="panel">
-                <div class="panel-header">
-                    <h2>Lista de Crianças</h2>
-                    <div class="search-bar">
-                        <input type="text" id="searchCriancas" placeholder="Buscar por nome..." onkeyup="buscarCriancas()">
-                        <button class="btn btn-warning" onclick="migrarCriancas()" id="btnMigrar">🔄 Migrar para Adolescentes</button>
-                    </div>
+            <div id="registroError" class="error-message"></div>
+            <div id="registroSuccess" class="success-message"></div>
+
+            <form id="registroForm">
+                <div class="form-group-login">
+                    <label>Usuário *</label>
+                    <input type="text" id="regUsername" placeholder="Escolha um nome de usuário (mínimo 3 caracteres)" required>
                 </div>
-
-                <div class="stats-card">
-                    <h3 id="totalCriancas">0</h3>
-                    <p>Total de Crianças</p>
+                <div class="form-group-login">
+                    <label>Tipo de Perfil *</label>
+                    <select id="regPerfil">
+                        <option value="secretario">Secretário</option>
+                        <option value="lider regional">Líder Regional</option>
+                        <option value="lider local">Líder Local</option>
+                        <option value="outro">Outro</option>
+                    </select>
                 </div>
-
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>Data Nascimento</th>
-                                <th>Idade</th>
-                                <th>Congregação</th>
-                                <th>Contato</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbodyCriancas">
-                            <tr><td colspan="6" style="text-align: center;">Carregando...</td></tr>
-                        </tbody>
-                    </table>
+                <div class="form-group-login">
+                    <label>Senha (3 caracteres) *</label>
+                    <input type="password" id="regPassword" placeholder="Exatamente 3 caracteres" maxlength="3" required>
+                    <div class="password-hint">A senha deve ter exatamente 3 caracteres (letras e/ou números)</div>
                 </div>
+                <div class="form-group-login">
+                    <label>Confirmar Senha *</label>
+                    <input type="password" id="regConfirmPassword" placeholder="Digite a senha novamente" maxlength="3" required>
+                </div>
+                <button type="submit" class="btn-registro">Criar Conta</button>
+            </form>
+            <div class="link-login">
+                Já tem uma conta? <a onclick="mostrarLogin()">Fazer login</a>
             </div>
         </div>
+    </div>
 
-        <!-- Painel Adolescentes -->
-        <div id="tab-adolescentes" class="tab-content">
-            <div class="panel">
-                <div class="panel-header">
-                    <h2>Lista de Adolescentes</h2>
-                    <div class="search-bar">
-                        <input type="text" id="searchAdolescentes" placeholder="Buscar por nome..." onkeyup="buscarAdolescentes()">
-                    </div>
+    <!-- Sistema Principal -->
+    <div id="mainApp" class="main-app">
+        <div class="container">
+            <div class="header">
+                <h1>📋 Sistema de Cadastro - ACPADESB</h1>
+                <div class="user-info">
+                    <span>👤 <span id="userName" class="user-name"></span></span>
+                    <span>🔖 <span id="userPerfil"></span></span>
+                    <button class="btn-logout" onclick="logout()">Sair</button>
                 </div>
-
-                <div class="stats-card">
-                    <h3 id="totalAdolescentes">0</h3>
-                    <p>Total de Adolescentes</p>
-                </div>
-
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>Data Nascimento</th>
-                                <th>Idade</th>
-                                <th>Congregação</th>
-                                <th>Contato</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbodyAdolescentes">
-                            <tr><td colspan="6" style="text-align: center;">Carregando...</td></tr>
-                        </tbody>
-                    </table>
+                <div>
+                    <button class="btn btn-primary" id="btnNovo" onclick="abrirModal()">➕ Novo Cadastro</button>
                 </div>
             </div>
-        </div>
 
-        <!-- Painel Congregações -->
-        <div id="tab-congregacoes" class="tab-content">
-            <div class="panel">
-                <div class="panel-header">
-                    <h2>Lista de Congregações</h2>
-                    <div class="search-bar">
-                        <input type="text" id="searchCongregacoes" placeholder="Buscar por nome..." onkeyup="buscarCongregacoes()">
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('criancas')">🧒 Crianças</button>
+                <button class="tab-btn" onclick="switchTab('adolescentes')">🧑 Adolescentes</button>
+                <button class="tab-btn" onclick="switchTab('congregacoes')">⛪ Congregações</button>
+            </div>
+
+            <!-- Painel Crianças -->
+            <div id="tab-criancas" class="tab-content active">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2>Lista de Crianças</h2>
+                        <div class="search-bar">
+                            <input type="text" id="searchCriancas" placeholder="Buscar por nome..." onkeyup="buscarCriancas()">
+                            <button class="btn btn-warning" onclick="migrarCriancas()" id="btnMigrar">🔄 Migrar para Adolescentes</button>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <h3 id="totalCriancas">0</h3>
+                        <p>Total de Crianças</p>
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Data Nascimento</th>
+                                    <th>Idade</th>
+                                    <th>Congregação</th>
+                                    <th>Contato</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyCriancas">
+                                <tr><td colspan="6" style="text-align: center;">Carregando...</td</tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
+            </div>
 
-                <div class="stats-card">
-                    <h3 id="totalCongregacoes">0</h3>
-                    <p>Total de Congregações</p>
+            <!-- Painel Adolescentes -->
+            <div id="tab-adolescentes" class="tab-content">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2>Lista de Adolescentes</h2>
+                        <div class="search-bar">
+                            <input type="text" id="searchAdolescentes" placeholder="Buscar por nome..." onkeyup="buscarAdolescentes()">
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <h3 id="totalAdolescentes">0</h3>
+                        <p>Total de Adolescentes</p>
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Data Nascimento</th>
+                                    <th>Idade</th>
+                                    <th>Congregação</th>
+                                    <th>Contato</th>
+                                    <th>Ações</th>
+                                </td>
+                            </thead>
+                            <tbody id="tbodyAdolescentes">
+                                <tr><td colspan="6" style="text-align: center;">Carregando...</td</tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+            </div>
 
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>Pastor</th>
-                                <th>Endereço</th>
-                                <th>Cidade/UF</th>
-                                <th>Telefone</th>
-                                <th>Email</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbodyCongregacoes">
-                            <tr><td colspan="7" style="text-align: center;">Carregando...</td></tr>
-                        </tbody>
-                    </table>
+            <!-- Painel Congregações -->
+            <div id="tab-congregacoes" class="tab-content">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2>Lista de Congregações</h2>
+                        <div class="search-bar">
+                            <input type="text" id="searchCongregacoes" placeholder="Buscar por nome..." onkeyup="buscarCongregacoes()">
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <h3 id="totalCongregacoes">0</h3>
+                        <p>Total de Congregações</p>
+                    </div>
+                    <div class="table-wrapper">
+                        </table>
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Pastor</th>
+                                    <th>Endereço</th>
+                                    <th>Cidade/UF</th>
+                                    <th>Telefone</th>
+                                    <th>Email</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyCongregacoes">
+                                <tr><td colspan="7" style="text-align: center;">Carregando...</td</tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal para Pessoa (Criança/Adolescente) -->
+    <!-- Modais -->
     <div id="modalPessoa" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -622,7 +869,6 @@
         </div>
     </div>
 
-    <!-- Modal para Congregação -->
     <div id="modalCongregacao" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -674,28 +920,200 @@
     </div>
 
     <script>
-        // Configuração - detecta ambiente automaticamente
         const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
             ? 'http://127.0.0.1:5000'
             : 'https://cadastro-acpadesb-4.onrender.com';
+
+        let token = localStorage.getItem('token');
+        let usuarioAtual = null;
 
         let listaAdolescentes = [];
         let listaCriancas = [];
         let listaCongregacoes = [];
         let abaAtual = 'criancas';
 
-        console.log("🔗 API_URL:", API_URL);
+        const perfilDisplay = {
+            'secretario': 'Secretário',
+            'lider regional': 'Líder Regional',
+            'lider local': 'Líder Local',
+            'outro': 'Outro'
+        };
 
-        // ======================================================
-        // INICIALIZAÇÃO
-        // ======================================================
-        document.addEventListener('DOMContentLoaded', () => {
-            carregarCriancas();
-            carregarAdolescentes();
-            carregarCongregacoes();
-            carregarSelectCongregacoes();
-            atualizarBotaoNovo();
-        });
+        function mostrarRegistro() {
+            document.getElementById('loginContainer').style.display = 'none';
+            document.getElementById('registroContainer').style.display = 'flex';
+            document.getElementById('registroError').classList.remove('show');
+            document.getElementById('registroSuccess').classList.remove('show');
+        }
+
+        function mostrarLogin() {
+            document.getElementById('registroContainer').style.display = 'none';
+            document.getElementById('loginContainer').style.display = 'flex';
+            document.getElementById('loginError').classList.remove('show');
+        }
+
+        async function criarConta(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('regUsername').value.trim();
+            const perfil = document.getElementById('regPerfil').value;
+            const password = document.getElementById('regPassword').value;
+            const confirmar_senha = document.getElementById('regConfirmPassword').value;
+
+            document.getElementById('registroError').classList.remove('show');
+            document.getElementById('registroSuccess').classList.remove('show');
+
+            if (!username || username.length < 3) {
+                showRegistroError('Usuário deve ter pelo menos 3 caracteres');
+                return;
+            }
+
+            if (!password || password.length !== 3) {
+                showRegistroError('Senha deve ter exatamente 3 caracteres');
+                return;
+            }
+
+            if (password !== confirmar_senha) {
+                showRegistroError('As senhas não coincidem');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/auth/criar-conta`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password, confirmar_senha, perfil })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showRegistroSuccess('Conta criada com sucesso! Redirecionando para o login...');
+                    document.getElementById('registroForm').reset();
+                    setTimeout(() => {
+                        mostrarLogin();
+                        document.getElementById('loginUsername').value = username;
+                    }, 2000);
+                } else {
+                    showRegistroError(data.message);
+                }
+            } catch (error) {
+                console.error('Erro ao criar conta:', error);
+                showRegistroError('Erro ao conectar ao servidor');
+            }
+        }
+
+        function showRegistroError(message) {
+            const errorDiv = document.getElementById('registroError');
+            errorDiv.textContent = message;
+            errorDiv.classList.add('show');
+            setTimeout(() => errorDiv.classList.remove('show'), 5000);
+        }
+
+        function showRegistroSuccess(message) {
+            const successDiv = document.getElementById('registroSuccess');
+            successDiv.textContent = message;
+            successDiv.classList.add('show');
+        }
+
+        function showLogin() {
+            document.getElementById('loginContainer').style.display = 'flex';
+            document.getElementById('mainApp').classList.remove('show');
+        }
+
+        function showMainApp() {
+            document.getElementById('loginContainer').style.display = 'none';
+            document.getElementById('registroContainer').style.display = 'none';
+            document.getElementById('mainApp').classList.add('show');
+        }
+
+        async function fazerLogin(username, password) {
+            try {
+                const response = await fetch(`${API_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    token = data.token;
+                    usuarioAtual = data.usuario;
+                    localStorage.setItem('token', token);
+                    localStorage.setItem('usuario', JSON.stringify(usuarioAtual));
+
+                    document.getElementById('userName').textContent = usuarioAtual.username;
+                    document.getElementById('userPerfil').textContent = perfilDisplay[usuarioAtual.perfil] || usuarioAtual.perfil;
+
+                    showMainApp();
+                    carregarTodosDados();
+                    notificar(`Bem-vindo, ${usuarioAtual.username}!`, 'success');
+                    return true;
+                } else {
+                    showLoginError(data.message);
+                    return false;
+                }
+            } catch (error) {
+                showLoginError('Erro ao conectar ao servidor');
+                return false;
+            }
+        }
+
+        function logout() {
+            token = null;
+            usuarioAtual = null;
+            localStorage.removeItem('token');
+            localStorage.removeItem('usuario');
+            showLogin();
+            document.getElementById('loginForm').reset();
+        }
+
+        function showLoginError(message) {
+            const errorDiv = document.getElementById('loginError');
+            errorDiv.textContent = message;
+            errorDiv.classList.add('show');
+            setTimeout(() => errorDiv.classList.remove('show'), 3000);
+        }
+
+        async function verificarToken() {
+            const storedToken = localStorage.getItem('token');
+            if (!storedToken) {
+                showLogin();
+                return false;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/auth/verificar`, {
+                    headers: { 'Authorization': `Bearer ${storedToken}` }
+                });
+
+                const data = await response.json();
+
+                if (data.authenticated) {
+                    token = storedToken;
+                    usuarioAtual = JSON.parse(localStorage.getItem('usuario') || '{}');
+                    document.getElementById('userName').textContent = usuarioAtual.username || 'Usuário';
+                    document.getElementById('userPerfil').textContent = perfilDisplay[usuarioAtual.perfil] || usuarioAtual.perfil;
+                    showMainApp();
+                    carregarTodosDados();
+                    return true;
+                } else {
+                    showLogin();
+                    return false;
+                }
+            } catch (error) {
+                showLogin();
+                return false;
+            }
+        }
+
+        async function carregarTodosDados() {
+            await carregarCriancas();
+            await carregarAdolescentes();
+            await carregarCongregacoes();
+            await carregarSelectCongregacoes();
+        }
 
         function atualizarBotaoNovo() {
             const btnNovo = document.getElementById('btnNovo');
@@ -711,15 +1129,10 @@
             }
         }
 
-        // ======================================================
-        // FUNÇÕES DE ABA
-        // ======================================================
         function switchTab(aba) {
             abaAtual = aba;
-
             const botoes = document.querySelectorAll('.tab-btn');
             botoes.forEach(btn => btn.classList.remove('active'));
-
             document.getElementById('tab-criancas').classList.remove('active');
             document.getElementById('tab-adolescentes').classList.remove('active');
             document.getElementById('tab-congregacoes').classList.remove('active');
@@ -734,33 +1147,26 @@
                 botoes[2].classList.add('active');
                 document.getElementById('tab-congregacoes').classList.add('active');
             }
-
             atualizarBotaoNovo();
         }
 
-        // ======================================================
-        // CARREGAR SELECT DE CONGREGAÇÕES
-        // ======================================================
-        async function carregarSelectCongregacoes() {
-            try {
-                const response = await fetch(`${API_URL}/congregacoes/`);
-                const congregacoes = await response.json();
-                const select = document.getElementById('pessoaCongregacao');
-                select.innerHTML = '<option value="">Selecione uma congregação...</option>';
-                congregacoes.forEach(c => {
-                    select.innerHTML += `<option value="${c.nome}">${c.nome}</option>`;
-                });
-            } catch (error) {
-                console.error('Erro ao carregar congregações para select:', error);
+        async function fetchWithAuth(url, options = {}) {
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+                ...options.headers
+            };
+            const response = await fetch(url, { ...options, headers });
+            if (response.status === 401) {
+                logout();
+                throw new Error('Sessão expirada');
             }
+            return response;
         }
 
-        // ======================================================
-        // CRUD ADOLESCENTES
-        // ======================================================
         async function carregarAdolescentes() {
             try {
-                const response = await fetch(`${API_URL}/adolescentes/`);
+                const response = await fetchWithAuth(`${API_URL}/adolescentes/`);
                 listaAdolescentes = await response.json();
                 atualizarTabelaAdolescentes();
                 document.getElementById('totalAdolescentes').textContent = listaAdolescentes.length;
@@ -773,7 +1179,7 @@
         function atualizarTabelaAdolescentes(dados = listaAdolescentes) {
             const tbody = document.getElementById('tbodyAdolescentes');
             if (dados.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">Nenhum adolescente cadastrado</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">Nenhum adolescente cadastrado</td</tr>';
                 return;
             }
             tbody.innerHTML = dados.map(a => {
@@ -799,12 +1205,9 @@
             atualizarTabelaAdolescentes(filtrados);
         }
 
-        // ======================================================
-        // CRUD CRIANÇAS
-        // ======================================================
         async function carregarCriancas() {
             try {
-                const response = await fetch(`${API_URL}/criancas/`);
+                const response = await fetchWithAuth(`${API_URL}/criancas/`);
                 listaCriancas = await response.json();
                 atualizarTabelaCriancas();
                 document.getElementById('totalCriancas').textContent = listaCriancas.length;
@@ -817,7 +1220,7 @@
         function atualizarTabelaCriancas(dados = listaCriancas) {
             const tbody = document.getElementById('tbodyCriancas');
             if (dados.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">Nenhuma criança cadastrada</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">Nenhuma criança cadastrada</td</tr>';
                 return;
             }
             tbody.innerHTML = dados.map(c => {
@@ -843,12 +1246,9 @@
             atualizarTabelaCriancas(filtrados);
         }
 
-        // ======================================================
-        // CRUD CONGREGAÇÕES
-        // ======================================================
         async function carregarCongregacoes() {
             try {
-                const response = await fetch(`${API_URL}/congregacoes/`);
+                const response = await fetchWithAuth(`${API_URL}/congregacoes/`);
                 listaCongregacoes = await response.json();
                 atualizarTabelaCongregacoes();
                 document.getElementById('totalCongregacoes').textContent = listaCongregacoes.length;
@@ -861,7 +1261,7 @@
         function atualizarTabelaCongregacoes(dados = listaCongregacoes) {
             const tbody = document.getElementById('tbodyCongregacoes');
             if (dados.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">Nenhuma congregação cadastrada</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">Nenhuma congregação cadastrada</td</tr>';
                 return;
             }
             tbody.innerHTML = dados.map(c => `
@@ -889,7 +1289,7 @@
         async function deletarCongregacao(id) {
             if (!confirm('Tem certeza que deseja deletar esta congregação?')) return;
             try {
-                await fetch(`${API_URL}/congregacoes/${id}`, { method: 'DELETE' });
+                await fetchWithAuth(`${API_URL}/congregacoes/${id}`, { method: 'DELETE' });
                 notificar('Congregação deletada!', 'success');
                 carregarCongregacoes();
                 carregarSelectCongregacoes();
@@ -898,9 +1298,20 @@
             }
         }
 
-        // ======================================================
-        // FUNÇÕES GERAIS
-        // ======================================================
+        async function carregarSelectCongregacoes() {
+            try {
+                const response = await fetchWithAuth(`${API_URL}/congregacoes/`);
+                const congregacoes = await response.json();
+                const select = document.getElementById('pessoaCongregacao');
+                select.innerHTML = '<option value="">Selecione uma congregação...</option>';
+                congregacoes.forEach(c => {
+                    select.innerHTML += `<option value="${c.nome}">${c.nome}</option>`;
+                });
+            } catch (error) {
+                console.error('Erro ao carregar congregações para select:', error);
+            }
+        }
+
         function calcularIdade(dataNasc) {
             if (!dataNasc) return 0;
             const hoje = new Date();
@@ -917,21 +1328,14 @@
             return d.toLocaleDateString('pt-BR');
         }
 
-        // ======================================================
-        // MODAL PESSOA (Criança/Adolescente)
-        // ======================================================
         function abrirModalPessoa(id = null, tipo = null) {
             document.getElementById('formPessoa').reset();
             document.getElementById('pessoaId').value = '';
-
             const tipoAtual = tipo || abaAtual;
             document.getElementById('pessoaTipo').value = tipoAtual;
 
             if (id) {
-                const item = tipoAtual === 'adolescentes'
-                    ? listaAdolescentes.find(x => x.id === id)
-                    : listaCriancas.find(x => x.id === id);
-
+                const item = tipoAtual === 'adolescentes' ? listaAdolescentes.find(x => x.id === id) : listaCriancas.find(x => x.id === id);
                 if (item) {
                     document.getElementById('pessoaId').value = item.id;
                     document.getElementById('pessoaNome').value = item.nome || '';
@@ -951,13 +1355,9 @@
             document.getElementById('modalPessoa').classList.add('active');
         }
 
-        // ======================================================
-        // MODAL CONGREGAÇÃO
-        // ======================================================
         function abrirModalCongregacao(id = null) {
             document.getElementById('formCongregacao').reset();
             document.getElementById('congregacaoId').value = '';
-
             if (id) {
                 const item = listaCongregacoes.find(x => x.id === id);
                 if (item) {
@@ -981,40 +1381,25 @@
             document.getElementById(modalId).classList.remove('active');
         }
 
-        // ======================================================
-        // DELETAR PESSOA
-        // ======================================================
         async function deletar(id, tipo) {
             if (!confirm(`Tem certeza que deseja deletar ${tipo === 'adolescentes' ? 'este adolescente' : 'esta criança'}?`)) return;
             try {
                 const endpoint = tipo === 'adolescentes' ? 'adolescentes' : 'criancas';
-                await fetch(`${API_URL}/${endpoint}/${id}`, { method: 'DELETE' });
+                await fetchWithAuth(`${API_URL}/${endpoint}/${id}`, { method: 'DELETE' });
                 notificar(`${tipo === 'adolescentes' ? 'Adolescente' : 'Criança'} deletado!`, 'success');
-                if (tipo === 'adolescentes') {
-                    carregarAdolescentes();
-                } else {
-                    carregarCriancas();
-                }
+                if (tipo === 'adolescentes') carregarAdolescentes();
+                else carregarCriancas();
             } catch (error) {
                 notificar('Erro ao deletar', 'error');
             }
         }
 
-        // ======================================================
-        // MIGRAÇÃO
-        // ======================================================
         async function migrarCriancas() {
             if (!confirm('⚠️ Isso irá migrar todas as crianças com 12 anos ou mais para a lista de adolescentes.\n\nAs crianças migradas serão removidas da lista de crianças.\n\nDeseja continuar?')) return;
-
             try {
                 notificar('Processando migração...', 'info');
-                const response = await fetch(`${API_URL}/criancas/migrar-para-adolescentes`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' }
-                });
-
+                const response = await fetchWithAuth(`${API_URL}/criancas/migrar-para-adolescentes`, { method: 'POST', headers: { 'Content-Type': 'application/json' } });
                 const resultado = await response.json();
-
                 if (resultado.status === 'ok') {
                     notificar(`✅ ${resultado.mensagem}`, 'success');
                     await carregarCriancas();
@@ -1028,16 +1413,11 @@
             }
         }
 
-        // ======================================================
-        // FORMULÁRIO PESSOA
-        // ======================================================
         document.getElementById('formPessoa').addEventListener('submit', async function(e) {
             e.preventDefault();
-
             const id = document.getElementById('pessoaId').value;
             const tipo = document.getElementById('pessoaTipo').value;
             const endpoint = tipo === 'adolescentes' ? 'adolescentes' : 'criancas';
-
             const data = {
                 nome: document.getElementById('pessoaNome').value,
                 data_nasc: document.getElementById('pessoaDataNasc').value,
@@ -1049,26 +1429,15 @@
                 congregacao: document.getElementById('pessoaCongregacao').value,
                 endereco: document.getElementById('pessoaEndereco').value
             };
-
             try {
                 const url = id ? `${API_URL}/${endpoint}/${id}` : `${API_URL}/${endpoint}/`;
                 const method = id ? 'PUT' : 'POST';
-
-                const response = await fetch(url, {
-                    method,
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
-
+                const response = await fetchWithAuth(url, { method, body: JSON.stringify(data) });
                 if (response.ok) {
                     notificar(id ? 'Registro atualizado!' : 'Registro cadastrado!', 'success');
                     fecharModal('modalPessoa');
-
-                    if (tipo === 'adolescentes') {
-                        carregarAdolescentes();
-                    } else {
-                        carregarCriancas();
-                    }
+                    if (tipo === 'adolescentes') carregarAdolescentes();
+                    else carregarCriancas();
                 } else {
                     const erro = await response.text();
                     throw new Error(`Erro ${response.status}: ${erro}`);
@@ -1079,14 +1448,9 @@
             }
         });
 
-        // ======================================================
-        // FORMULÁRIO CONGREGAÇÃO
-        // ======================================================
         document.getElementById('formCongregacao').addEventListener('submit', async function(e) {
             e.preventDefault();
-
             const id = document.getElementById('congregacaoId').value;
-
             const data = {
                 nome: document.getElementById('congregacaoNome').value,
                 pastor: document.getElementById('congregacaoPastor').value,
@@ -1096,17 +1460,10 @@
                 telefone: document.getElementById('congregacaoTelefone').value,
                 email: document.getElementById('congregacaoEmail').value
             };
-
             try {
                 const url = id ? `${API_URL}/congregacoes/${id}` : `${API_URL}/congregacoes/`;
                 const method = id ? 'PUT' : 'POST';
-
-                const response = await fetch(url, {
-                    method,
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
-
+                const response = await fetchWithAuth(url, { method, body: JSON.stringify(data) });
                 if (response.ok) {
                     notificar(id ? 'Congregação atualizada!' : 'Congregação cadastrada!', 'success');
                     fecharModal('modalCongregacao');
@@ -1129,6 +1486,17 @@
             document.body.appendChild(notification);
             setTimeout(() => notification.remove(), 4000);
         }
+
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            await fazerLogin(username, password);
+        });
+
+        document.getElementById('registroForm').addEventListener('submit', criarConta);
+
+        verificarToken();
 
         window.onclick = function(event) {
             if (event.target.classList.contains('modal')) {

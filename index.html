@@ -1255,7 +1255,7 @@
                     <tr>
                         <td>${a.nome || ''}</td>
                         <td>${formatarData(a.data_nasc)}</td>
-                        <td>${idade} anos</td>
+                        <td>${idade}</td>
                         <td>${a.congregacao || '-'}</td>
                         <td>${a.contato || '-'}</td>
                         <td class="actions">
@@ -1296,7 +1296,7 @@
                     <tr>
                         <td>${c.nome || ''}</td>
                         <td>${formatarData(c.data_nasc)}</td>
-                        <td>${idade} anos</td>
+                        <td>${idade}</td>
                         <td>${c.congregacao || '-'}</td>
                         <td>${c.contato || '-'}</td>
                         <td class="actions">
@@ -1380,26 +1380,60 @@
         }
 
         function calcularIdade(dataNasc) {
-            if (!dataNasc) return 0;
-            const hoje = new Date();
-            const nasc = new Date(dataNasc);
-            let idade = hoje.getFullYear() - nasc.getFullYear();
-            const mes = hoje.getMonth() - nasc.getMonth();
-            if (mes < 0 || (mes === 0 && hoje.getDate() < nasc.getDate())) idade--;
-            return idade;
-        }
+    if (!dataNasc) return '';
+
+    // Pega a data atual do dispositivo (zerando horas para evitar problemas de fuso)
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0);
+
+    // Interpreta a data de nascimento no fuso local (evita UTC)
+    const [ano, mes, dia] = dataNasc.split('-').map(Number);
+    const nasc = new Date(ano, mes - 1, dia); // ← Mês é 0-indexed no JS
+    nasc.setHours(0, 0, 0, 0);
+
+    // Calcula a diferença em dias
+    const diffMs = hoje - nasc;
+    const diffDias = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+    // Se for menos de 30 dias, mostra em dias
+    if (diffDias < 30) {
+        return `${diffDias} ${diffDias === 1 ? 'dia' : 'dias'}`;
+    }
+
+    // Calcula meses completos
+    let meses = (hoje.getFullYear() - nasc.getFullYear()) * 12;
+    meses += hoje.getMonth() - nasc.getMonth();
+
+    // Ajusta se ainda não completou o mês
+    if (hoje.getDate() < nasc.getDate()) {
+        meses--;
+    }
+
+    // Se tiver menos de 1 ano
+    if (meses < 12) {
+        return `${meses} ${meses === 1 ? 'mês' : 'meses'}`;
+    }
+
+    // Se tiver 1 ano ou mais
+    let anos = Math.floor(meses / 12);
+    return `${anos} ${anos === 1 ? 'ano' : 'anos'}`;
+}
 
         function formatarData(data) {
-            if (!data) return '';
-            const d = new Date(data + 'T12:00:00');
-            return d.toLocaleDateString('pt-BR');
-        }
+    if (!data) return '';
+    // Interpreta manualmente para evitar problema de fuso horário
+    const [ano, mes, dia] = data.split('-');
+    return `${dia}/${mes}/${ano}`;
+}
 
         function abrirModalPessoa(id = null, tipo = null) {
             document.getElementById('formPessoa').reset();
             document.getElementById('pessoaId').value = '';
             const tipoAtual = tipo || abaAtual;
             document.getElementById('pessoaTipo').value = tipoAtual;
+
+            // Bloqueia datas futuras no campo de data de nascimento
+            document.getElementById('pessoaDataNasc').max = new Date().toISOString().split('T')[0];
 
             if (id) {
                 const item = tipoAtual === 'adolescentes' ? listaAdolescentes.find(x => x.id === id) : listaCriancas.find(x => x.id === id);
@@ -1482,6 +1516,16 @@
 
         document.getElementById('formPessoa').addEventListener('submit', async function(e) {
             e.preventDefault();
+
+            const dataNasc = document.getElementById('pessoaDataNasc').value;
+            const hoje = new Date().toISOString().split('T')[0];
+
+            // Validação: não permite data futura
+            if (dataNasc > hoje) {
+                notificar('A data de nascimento não pode ser uma data futura!', 'error');
+                return;
+            }
+
             const id = document.getElementById('pessoaId').value;
             const tipo = document.getElementById('pessoaTipo').value;
             const endpoint = tipo === 'adolescentes' ? 'adolescentes' : 'criancas';

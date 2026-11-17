@@ -53,14 +53,8 @@
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .login-box h1, .registro-box h1 {
@@ -144,9 +138,7 @@
             display: none;
         }
 
-        .error-message.show {
-            display: block;
-        }
+        .error-message.show { display: block; }
 
         .success-message {
             background: #c6f6d5;
@@ -159,9 +151,7 @@
             display: none;
         }
 
-        .success-message.show {
-            display: block;
-        }
+        .success-message.show { display: block; }
 
         .link-cadastro, .link-login {
             text-align: center;
@@ -177,9 +167,7 @@
             cursor: pointer;
         }
 
-        .link-cadastro a:hover, .link-login a:hover {
-            text-decoration: underline;
-        }
+        .link-cadastro a:hover, .link-login a:hover { text-decoration: underline; }
 
         .user-info {
             display: flex;
@@ -213,14 +201,8 @@
             transform: translateY(-1px);
         }
 
-        /* Main App (inicialmente escondido) */
-        .main-app {
-            display: none;
-        }
-
-        .main-app.show {
-            display: block;
-        }
+        .main-app { display: none; }
+        .main-app.show { display: block; }
 
         .header {
             background: white;
@@ -271,18 +253,10 @@
             box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
         }
 
-        .tab-btn:hover:not(.active) {
-            background: #e0e0e0;
-        }
+        .tab-btn:hover:not(.active) { background: #e0e0e0; }
 
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -302,36 +276,12 @@
             gap: 8px;
         }
 
-        .btn-primary {
-            background: #667eea;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #5a67d8;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-warning {
-            background: #ed8936;
-            color: white;
-        }
-
-        .btn-warning:hover {
-            background: #dd6b20;
-            transform: translateY(-2px);
-        }
-
-        .btn-danger {
-            background: #f56565;
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background: #e53e3e;
-            transform: translateY(-2px);
-        }
+        .btn-primary { background: #667eea; color: white; }
+        .btn-primary:hover { background: #5a67d8; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4); }
+        .btn-warning { background: #ed8936; color: white; }
+        .btn-warning:hover { background: #dd6b20; transform: translateY(-2px); }
+        .btn-danger { background: #f56565; color: white; }
+        .btn-danger:hover { background: #e53e3e; transform: translateY(-2px); }
 
         .panel {
             background: white;
@@ -349,10 +299,7 @@
             gap: 15px;
         }
 
-        .panel-header h2 {
-            color: #333;
-            font-size: 22px;
-        }
+        .panel-header h2 { color: #333; font-size: 22px; }
 
         .search-bar {
             display: flex;
@@ -369,10 +316,7 @@
             transition: border-color 0.3s ease;
         }
 
-        .search-bar input:focus {
-            outline: none;
-            border-color: #667eea;
-        }
+        .search-bar input:focus { outline: none; border-color: #667eea; }
 
         .stats-card {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -385,29 +329,12 @@
             min-width: 200px;
         }
 
-        .stats-card h3 {
-            font-size: 32px;
-            margin-bottom: 5px;
-        }
+        .stats-card h3 { font-size: 32px; margin-bottom: 5px; }
+        .stats-card p { font-size: 14px; opacity: 0.9; }
 
-        .stats-card p {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-
-        .table-wrapper {
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        thead {
-            background: #f8f9fa;
-            border-bottom: 2px solid #dee2e6;
-        }
+        .table-wrapper { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; }
+        thead { background: #f8f9fa; border-bottom: 2px solid #dee2e6; }
 
         th {
             padding: 12px 15px;
@@ -425,14 +352,8 @@
             color: #666;
         }
 
-        tbody tr:hover {
-            background: #f8f9fa;
-        }
-
-        .actions {
-            display: flex;
-            gap: 6px;
-        }
+        tbody tr:hover { background: #f8f9fa; }
+        .actions { display: flex; gap: 6px; }
 
         .btn-icon {
             padding: 5px 10px;
@@ -444,21 +365,10 @@
             color: white;
         }
 
-        .btn-edit {
-            background: #4299e1;
-        }
-
-        .btn-edit:hover {
-            background: #3182ce;
-        }
-
-        .btn-delete {
-            background: #f56565;
-        }
-
-        .btn-delete:hover {
-            background: #e53e3e;
-        }
+        .btn-edit { background: #4299e1; }
+        .btn-edit:hover { background: #3182ce; }
+        .btn-delete { background: #f56565; }
+        .btn-delete:hover { background: #e53e3e; }
 
         .modal {
             display: none;
@@ -473,9 +383,7 @@
             justify-content: center;
         }
 
-        .modal.active {
-            display: flex;
-        }
+        .modal.active { display: flex; }
 
         .modal-content {
             background: white;
@@ -495,9 +403,7 @@
             margin-bottom: 20px;
         }
 
-        .modal-header h2 {
-            color: #333;
-        }
+        .modal-header h2 { color: #333; }
 
         .close-btn {
             background: none;
@@ -508,13 +414,9 @@
             transition: color 0.2s ease;
         }
 
-        .close-btn:hover {
-            color: #333;
-        }
+        .close-btn:hover { color: #333; }
 
-        .form-group {
-            margin-bottom: 18px;
-        }
+        .form-group { margin-bottom: 18px; }
 
         .form-group label {
             display: block;
@@ -565,55 +467,23 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
-        .notification.success {
-            background: #48bb78;
-        }
-
-        .notification.error {
-            background: #f56565;
-        }
-
-        .notification.info {
-            background: #4299e1;
-        }
+        .notification.success { background: #48bb78; }
+        .notification.error { background: #f56565; }
+        .notification.info { background: #4299e1; }
 
         @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
         @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                text-align: center;
-            }
-            .search-bar {
-                width: 100%;
-            }
-            .search-bar input {
-                width: 100%;
-            }
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-            .tab-btn {
-                padding: 10px 20px;
-                font-size: 14px;
-            }
-            .user-info {
-                width: 100%;
-                justify-content: center;
-            }
-            .login-box, .registro-box {
-                margin: 20px;
-                padding: 30px 20px;
-            }
+            .header { flex-direction: column; text-align: center; }
+            .search-bar { width: 100%; }
+            .search-bar input { width: 100%; }
+            .form-row { grid-template-columns: 1fr; }
+            .tab-btn { padding: 10px 20px; font-size: 14px; }
+            .user-info { width: 100%; justify-content: center; }
+            .login-box, .registro-box { margin: 20px; padding: 30px 20px; }
         }
     </style>
 </head>
@@ -655,7 +525,7 @@
         </div>
     </div>
 
-    <!-- Tela de Registro/Criar Conta -->
+    <!-- Tela de Registro -->
     <div id="registroContainer" class="registro-container" style="display: none;">
         <div class="registro-box">
             <div class="logo">📝</div>
@@ -723,10 +593,10 @@
                 </div>
             </div>
 
-            <div class="tabs">
-                <button class="tab-btn active" onclick="switchTab('criancas')">🧒 Crianças</button>
-                <button class="tab-btn" onclick="switchTab('adolescentes')">🧑 Adolescentes</button>
-                <button class="tab-btn" onclick="switchTab('congregacoes')">⛪ Congregações</button>
+            <div class="tabs" id="tabsContainer">
+                <button class="tab-btn active" data-tab="criancas" onclick="switchTab('criancas')">🧒 Crianças</button>
+                <button class="tab-btn" data-tab="adolescentes" onclick="switchTab('adolescentes')">🧑 Adolescentes</button>
+                <button class="tab-btn" data-tab="congregacoes" onclick="switchTab('congregacoes')">⛪ Congregações</button>
             </div>
 
             <!-- Painel Crianças -->
@@ -945,7 +815,7 @@
     <script>
         const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
             ? 'http://127.0.0.1:5000'
-            : 'https://cadastro-acpadesb-4.onrender.com';
+            : 'https://cadastro-acpadesb-11.onrender.com';
 
         let token = localStorage.getItem('token');
         let usuarioAtual = null;
@@ -967,6 +837,70 @@
             'adolescentes': '🧑 Adolescentes'
         };
 
+        // ======================================================
+        // CONTROLE DE ACESSO POR PERFIL E DEPARTAMENTO
+        // ======================================================
+        function podeEditar() {
+            if (!usuarioAtual) return false;
+            const perfil = usuarioAtual.perfil;
+            // Secretário e líder local editam; líder regional e "outro" só visualizam
+            return perfil === 'secretario' || perfil === 'lider local';
+        }
+
+        function aplicarRestricoesAcesso() {
+            if (!usuarioAtual) return;
+
+            const tabsContainer = document.getElementById('tabsContainer');
+            const btnCriancas = tabsContainer.querySelector('[data-tab="criancas"]');
+            const btnAdolescentes = tabsContainer.querySelector('[data-tab="adolescentes"]');
+            const btnCongregacoes = tabsContainer.querySelector('[data-tab="congregacoes"]');
+            const btnNovo = document.getElementById('btnNovo');
+            const btnMigrar = document.getElementById('btnMigrar');
+
+            const perfil = usuarioAtual.perfil;
+            const departamento = usuarioAtual.departamento;
+
+            // Reset padrão (visível)
+            btnCriancas.style.display = 'inline-block';
+            btnAdolescentes.style.display = 'inline-block';
+            btnCongregacoes.style.display = 'inline-block';
+            btnNovo.style.display = 'inline-flex';
+            if (btnMigrar) btnMigrar.style.display = 'inline-flex';
+
+            if (perfil === 'lider local') {
+                if (departamento === 'infantil') {
+                    btnAdolescentes.style.display = 'none';
+                    btnCongregacoes.style.display = 'none';
+                    if (abaAtual !== 'criancas') switchTab('criancas');
+                } else if (departamento === 'adolescentes') {
+                    btnCriancas.style.display = 'none';
+                    btnCongregacoes.style.display = 'none';
+                    if (abaAtual !== 'adolescentes') switchTab('adolescentes');
+                } else {
+                    // Sem departamento — bloqueia tudo
+                    btnCriancas.style.display = 'none';
+                    btnAdolescentes.style.display = 'none';
+                    btnCongregacoes.style.display = 'none';
+                    btnNovo.style.display = 'none';
+                    notificar('Seu usuário não tem departamento definido. Contate o administrador.', 'error');
+                }
+                // Líder local não migra
+                if (btnMigrar) btnMigrar.style.display = 'none';
+
+            } else if (perfil === 'outro') {
+                // Somente visualização
+                btnNovo.style.display = 'none';
+                if (btnMigrar) btnMigrar.style.display = 'none';
+
+            } else if (perfil === 'lider regional') {
+                // Líder regional: vê tudo, mas não migra
+                if (btnMigrar) btnMigrar.style.display = 'none';
+            }
+        }
+
+        // ======================================================
+        // NAVEGAÇÃO LOGIN / REGISTRO
+        // ======================================================
         function mostrarRegistro() {
             document.getElementById('loginContainer').style.display = 'none';
             document.getElementById('registroContainer').style.display = 'flex';
@@ -1016,13 +950,7 @@
                 const response = await fetch(`${API_URL}/auth/criar-conta`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        username,
-                        password,
-                        confirmar_senha,
-                        perfil,
-                        departamento
-                    })
+                    body: JSON.stringify({ username, password, confirmar_senha, perfil, departamento })
                 });
 
                 const data = await response.json();
@@ -1058,6 +986,7 @@
 
         function showLogin() {
             document.getElementById('loginContainer').style.display = 'flex';
+            document.getElementById('registroContainer').style.display = 'none';
             document.getElementById('mainApp').classList.remove('show');
         }
 
@@ -1067,14 +996,14 @@
             document.getElementById('mainApp').classList.add('show');
         }
 
+        // ======================================================
+        // LOGIN / LOGOUT / TOKEN
+        // ======================================================
         async function fazerLogin(username, password) {
             try {
                 const departamento = document.getElementById('loginDepartamento').value;
-
                 const body = { username, password };
-                if (departamento) {
-                    body.departamento = departamento;
-                }
+                if (departamento) body.departamento = departamento;
 
                 const response = await fetch(`${API_URL}/auth/login`, {
                     method: 'POST',
@@ -1090,19 +1019,9 @@
                     localStorage.setItem('token', token);
                     localStorage.setItem('usuario', JSON.stringify(usuarioAtual));
 
-                    document.getElementById('userName').textContent = usuarioAtual.username;
-                    document.getElementById('userPerfil').textContent = perfilDisplay[usuarioAtual.perfil] || usuarioAtual.perfil;
-
-                    const deptEl = document.getElementById('userDepartamento');
-                    if (usuarioAtual.departamento) {
-                        deptEl.textContent = departamentoDisplay[usuarioAtual.departamento] || usuarioAtual.departamento;
-                        deptEl.style.display = 'inline';
-                    } else {
-                        deptEl.textContent = '';
-                        deptEl.style.display = 'none';
-                    }
-
+                    atualizarHeaderUsuario();
                     showMainApp();
+                    aplicarRestricoesAcesso();
                     carregarTodosDados();
                     notificar(`Bem-vindo, ${usuarioAtual.username}!`, 'success');
                     return true;
@@ -1150,19 +1069,14 @@
                 if (data.authenticated) {
                     token = storedToken;
                     usuarioAtual = JSON.parse(localStorage.getItem('usuario') || '{}');
-                    document.getElementById('userName').textContent = usuarioAtual.username || 'Usuário';
-                    document.getElementById('userPerfil').textContent = perfilDisplay[usuarioAtual.perfil] || usuarioAtual.perfil;
+                    // fallback dos dados do token
+                    usuarioAtual.perfil = usuarioAtual.perfil || data.perfil;
+                    usuarioAtual.departamento = usuarioAtual.departamento || data.departamento;
+                    usuarioAtual.username = usuarioAtual.username || data.username;
 
-                    const deptEl = document.getElementById('userDepartamento');
-                    if (usuarioAtual.departamento) {
-                        deptEl.textContent = departamentoDisplay[usuarioAtual.departamento] || usuarioAtual.departamento;
-                        deptEl.style.display = 'inline';
-                    } else {
-                        deptEl.textContent = '';
-                        deptEl.style.display = 'none';
-                    }
-
+                    atualizarHeaderUsuario();
                     showMainApp();
+                    aplicarRestricoesAcesso();
                     carregarTodosDados();
                     return true;
                 } else {
@@ -1175,7 +1089,40 @@
             }
         }
 
+        function atualizarHeaderUsuario() {
+            if (!usuarioAtual) return;
+            document.getElementById('userName').textContent = usuarioAtual.username || 'Usuário';
+            document.getElementById('userPerfil').textContent = perfilDisplay[usuarioAtual.perfil] || usuarioAtual.perfil || '';
+
+            const deptEl = document.getElementById('userDepartamento');
+            if (usuarioAtual.departamento) {
+                deptEl.textContent = departamentoDisplay[usuarioAtual.departamento] || usuarioAtual.departamento;
+                deptEl.style.display = 'inline';
+            } else {
+                deptEl.textContent = '';
+                deptEl.style.display = 'none';
+            }
+        }
+
+        // ======================================================
+        // CARREGAMENTO DE DADOS
+        // ======================================================
         async function carregarTodosDados() {
+            const perfil = usuarioAtual?.perfil;
+            const departamento = usuarioAtual?.departamento;
+
+            if (perfil === 'lider local' && departamento === 'infantil') {
+                await carregarCriancas();
+                await carregarSelectCongregacoes();
+                return;
+            }
+
+            if (perfil === 'lider local' && departamento === 'adolescentes') {
+                await carregarAdolescentes();
+                await carregarSelectCongregacoes();
+                return;
+            }
+
             await carregarCriancas();
             await carregarAdolescentes();
             await carregarCongregacoes();
@@ -1184,6 +1131,9 @@
 
         function atualizarBotaoNovo() {
             const btnNovo = document.getElementById('btnNovo');
+            if (!podeEditar()) { btnNovo.style.display = 'none'; return; }
+
+            btnNovo.style.display = 'inline-flex';
             if (abaAtual === 'criancas') {
                 btnNovo.innerHTML = '➕ Nova Criança';
                 btnNovo.setAttribute('onclick', "abrirModalPessoa(null, 'criancas')");
@@ -1197,6 +1147,14 @@
         }
 
         function switchTab(aba) {
+            // Se o usuário não pode ver a aba, bloqueia
+            if (usuarioAtual?.perfil === 'lider local') {
+                const dep = usuarioAtual.departamento;
+                if (aba === 'congregacoes') return;
+                if (dep === 'infantil' && aba === 'adolescentes') return;
+                if (dep === 'adolescentes' && aba === 'criancas') return;
+            }
+
             abaAtual = aba;
             const botoes = document.querySelectorAll('.tab-btn');
             botoes.forEach(btn => btn.classList.remove('active'));
@@ -1205,13 +1163,13 @@
             document.getElementById('tab-congregacoes').classList.remove('active');
 
             if (aba === 'criancas') {
-                botoes[0].classList.add('active');
+                document.querySelector('[data-tab="criancas"]').classList.add('active');
                 document.getElementById('tab-criancas').classList.add('active');
             } else if (aba === 'adolescentes') {
-                botoes[1].classList.add('active');
+                document.querySelector('[data-tab="adolescentes"]').classList.add('active');
                 document.getElementById('tab-adolescentes').classList.add('active');
             } else {
-                botoes[2].classList.add('active');
+                document.querySelector('[data-tab="congregacoes"]').classList.add('active');
                 document.getElementById('tab-congregacoes').classList.add('active');
             }
             atualizarBotaoNovo();
@@ -1231,6 +1189,9 @@
             return response;
         }
 
+        // ======================================================
+        // ADOLESCENTES
+        // ======================================================
         async function carregarAdolescentes() {
             try {
                 const response = await fetchWithAuth(`${API_URL}/adolescentes/`);
@@ -1251,6 +1212,10 @@
             }
             tbody.innerHTML = dados.map(a => {
                 const idade = calcularIdade(a.data_nasc);
+                const acoesHtml = podeEditar()
+                    ? `<button class="btn-icon btn-edit" onclick="abrirModalPessoa(${a.id}, 'adolescentes')">✏️</button>
+                       <button class="btn-icon btn-delete" onclick="deletar(${a.id}, 'adolescentes')">🗑️</button>`
+                    : '<span style="color:#999;">—</span>';
                 return `
                     <tr>
                         <td>${a.nome || ''}</td>
@@ -1258,10 +1223,7 @@
                         <td>${idade}</td>
                         <td>${a.congregacao || '-'}</td>
                         <td>${a.contato || '-'}</td>
-                        <td class="actions">
-                            <button class="btn-icon btn-edit" onclick="abrirModalPessoa(${a.id}, 'adolescentes')">✏️</button>
-                            <button class="btn-icon btn-delete" onclick="deletar(${a.id}, 'adolescentes')">🗑️</button>
-                        </td>
+                        <td class="actions">${acoesHtml}</td>
                     </tr>`;
             }).join('');
         }
@@ -1272,6 +1234,9 @@
             atualizarTabelaAdolescentes(filtrados);
         }
 
+        // ======================================================
+        // CRIANÇAS
+        // ======================================================
         async function carregarCriancas() {
             try {
                 const response = await fetchWithAuth(`${API_URL}/criancas/`);
@@ -1292,6 +1257,10 @@
             }
             tbody.innerHTML = dados.map(c => {
                 const idade = calcularIdade(c.data_nasc);
+                const acoesHtml = podeEditar()
+                    ? `<button class="btn-icon btn-edit" onclick="abrirModalPessoa(${c.id}, 'criancas')">✏️</button>
+                       <button class="btn-icon btn-delete" onclick="deletar(${c.id}, 'criancas')">🗑️</button>`
+                    : '<span style="color:#999;">—</span>';
                 return `
                     <tr>
                         <td>${c.nome || ''}</td>
@@ -1299,10 +1268,7 @@
                         <td>${idade}</td>
                         <td>${c.congregacao || '-'}</td>
                         <td>${c.contato || '-'}</td>
-                        <td class="actions">
-                            <button class="btn-icon btn-edit" onclick="abrirModalPessoa(${c.id}, 'criancas')">✏️</button>
-                            <button class="btn-icon btn-delete" onclick="deletar(${c.id}, 'criancas')">🗑️</button>
-                        </td>
+                        <td class="actions">${acoesHtml}</td>
                     </tr>`;
             }).join('');
         }
@@ -1313,6 +1279,9 @@
             atualizarTabelaCriancas(filtrados);
         }
 
+        // ======================================================
+        // CONGREGAÇÕES
+        // ======================================================
         async function carregarCongregacoes() {
             try {
                 const response = await fetchWithAuth(`${API_URL}/congregacoes/`);
@@ -1331,7 +1300,12 @@
                 tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">Nenhuma congregação cadastrada</td></tr>';
                 return;
             }
-            tbody.innerHTML = dados.map(c => `
+            tbody.innerHTML = dados.map(c => {
+                const acoesHtml = podeEditar()
+                    ? `<button class="btn-icon btn-edit" onclick="abrirModalCongregacao(${c.id})">✏️</button>
+                       <button class="btn-icon btn-delete" onclick="deletarCongregacao(${c.id})">🗑️</button>`
+                    : '<span style="color:#999;">—</span>';
+                return `
                 <tr>
                     <td>${c.nome || ''}</td>
                     <td>${c.pastor || '-'}</td>
@@ -1339,12 +1313,9 @@
                     <td>${c.cidade || '-'}/${c.estado || '-'}</td>
                     <td>${c.telefone || '-'}</td>
                     <td>${c.email || '-'}</td>
-                    <td class="actions">
-                        <button class="btn-icon btn-edit" onclick="abrirModalCongregacao(${c.id})">✏️</button>
-                        <button class="btn-icon btn-delete" onclick="deletarCongregacao(${c.id})">🗑️</button>
-                    </td>
-                </tr>
-            `).join('');
+                    <td class="actions">${acoesHtml}</td>
+                </tr>`;
+            }).join('');
         }
 
         function buscarCongregacoes() {
@@ -1379,60 +1350,57 @@
             }
         }
 
+        // ======================================================
+        // UTILITÁRIOS
+        // ======================================================
         function calcularIdade(dataNasc) {
-    if (!dataNasc) return '';
+            if (!dataNasc) return '';
+            const hoje = new Date();
+            hoje.setHours(0, 0, 0, 0);
 
-    // Pega a data atual do dispositivo (zerando horas para evitar problemas de fuso)
-    const hoje = new Date();
-    hoje.setHours(0, 0, 0, 0);
+            const [ano, mes, dia] = dataNasc.split('-').map(Number);
+            const nasc = new Date(ano, mes - 1, dia);
+            nasc.setHours(0, 0, 0, 0);
 
-    // Interpreta a data de nascimento no fuso local (evita UTC)
-    const [ano, mes, dia] = dataNasc.split('-').map(Number);
-    const nasc = new Date(ano, mes - 1, dia); // ← Mês é 0-indexed no JS
-    nasc.setHours(0, 0, 0, 0);
+            const diffMs = hoje - nasc;
+            const diffDias = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-    // Calcula a diferença em dias
-    const diffMs = hoje - nasc;
-    const diffDias = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+            if (diffDias < 30) {
+                return `${diffDias} ${diffDias === 1 ? 'dia' : 'dias'}`;
+            }
 
-    // Se for menos de 30 dias, mostra em dias
-    if (diffDias < 30) {
-        return `${diffDias} ${diffDias === 1 ? 'dia' : 'dias'}`;
-    }
+            let meses = (hoje.getFullYear() - nasc.getFullYear()) * 12;
+            meses += hoje.getMonth() - nasc.getMonth();
+            if (hoje.getDate() < nasc.getDate()) meses--;
 
-    // Calcula meses completos
-    let meses = (hoje.getFullYear() - nasc.getFullYear()) * 12;
-    meses += hoje.getMonth() - nasc.getMonth();
+            if (meses < 12) {
+                return `${meses} ${meses === 1 ? 'mês' : 'meses'}`;
+            }
 
-    // Ajusta se ainda não completou o mês
-    if (hoje.getDate() < nasc.getDate()) {
-        meses--;
-    }
-
-    // Se tiver menos de 1 ano
-    if (meses < 12) {
-        return `${meses} ${meses === 1 ? 'mês' : 'meses'}`;
-    }
-
-    // Se tiver 1 ano ou mais
-    let anos = Math.floor(meses / 12);
-    return `${anos} ${anos === 1 ? 'ano' : 'anos'}`;
-}
+            let anos = Math.floor(meses / 12);
+            return `${anos} ${anos === 1 ? 'ano' : 'anos'}`;
+        }
 
         function formatarData(data) {
-    if (!data) return '';
-    // Interpreta manualmente para evitar problema de fuso horário
-    const [ano, mes, dia] = data.split('-');
-    return `${dia}/${mes}/${ano}`;
-}
+            if (!data) return '';
+            const [ano, mes, dia] = data.split('-');
+            return `${dia}/${mes}/${ano}`;
+        }
 
+        // ======================================================
+        // MODAIS
+        // ======================================================
         function abrirModalPessoa(id = null, tipo = null) {
+            if (!podeEditar()) {
+                notificar('Você não tem permissão para editar cadastros.', 'error');
+                return;
+            }
+
             document.getElementById('formPessoa').reset();
             document.getElementById('pessoaId').value = '';
             const tipoAtual = tipo || abaAtual;
             document.getElementById('pessoaTipo').value = tipoAtual;
 
-            // Bloqueia datas futuras no campo de data de nascimento
             document.getElementById('pessoaDataNasc').max = new Date().toISOString().split('T')[0];
 
             if (id) {
@@ -1457,6 +1425,11 @@
         }
 
         function abrirModalCongregacao(id = null) {
+            if (!podeEditar()) {
+                notificar('Você não tem permissão para editar congregações.', 'error');
+                return;
+            }
+
             document.getElementById('formCongregacao').reset();
             document.getElementById('congregacaoId').value = '';
             if (id) {
@@ -1482,7 +1455,20 @@
             document.getElementById(modalId).classList.remove('active');
         }
 
+        // "abrirModal" usada pelo botão #btnNovo (compatibilidade)
+        function abrirModal() {
+            if (abaAtual === 'congregacoes') {
+                abrirModalCongregacao(null);
+            } else {
+                abrirModalPessoa(null, abaAtual);
+            }
+        }
+
         async function deletar(id, tipo) {
+            if (!podeEditar()) {
+                notificar('Você não tem permissão para excluir cadastros.', 'error');
+                return;
+            }
             if (!confirm(`Tem certeza que deseja deletar ${tipo === 'adolescentes' ? 'este adolescente' : 'esta criança'}?`)) return;
             try {
                 const endpoint = tipo === 'adolescentes' ? 'adolescentes' : 'criancas';
@@ -1514,13 +1500,15 @@
             }
         }
 
+        // ======================================================
+        // SUBMIT DOS FORMULÁRIOS
+        // ======================================================
         document.getElementById('formPessoa').addEventListener('submit', async function(e) {
             e.preventDefault();
 
             const dataNasc = document.getElementById('pessoaDataNasc').value;
             const hoje = new Date().toISOString().split('T')[0];
 
-            // Validação: não permite data futura
             if (dataNasc > hoje) {
                 notificar('A data de nascimento não pode ser uma data futura!', 'error');
                 return;

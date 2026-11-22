@@ -12,7 +12,7 @@ if os.path.exists('.env'):
 from blueprints.criancas import criancas_bp
 from blueprints.adolescentes import adolescentes_bp
 from blueprints.congregacoes import congregacoes_bp
-
+from blueprints.outros import outros_bp
 app = Flask(__name__, static_folder='static', static_url_path='')
 
 # Configuração CORS completa
@@ -36,6 +36,7 @@ print("=" * 50)
 app.register_blueprint(criancas_bp)
 app.register_blueprint(adolescentes_bp)
 app.register_blueprint(congregacoes_bp)
+app.register_blueprint(outros_bp)
 
 app.register_blueprint(auth_bp)
 @app.route('/')

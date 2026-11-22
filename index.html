@@ -4,12 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Cadastro - ACPADESB</title>
+    <link rel="icon" href="data:,">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -18,10 +15,7 @@
             padding: 20px;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        .container { max-width: 1200px; margin: 0 auto; }
 
         /* Tela de Login e Registro */
         .login-container, .registro-container {
@@ -31,16 +25,11 @@
             justify-content: center;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             z-index: 9999;
         }
 
-        .registro-container {
-            z-index: 9998;
-        }
+        .registro-container { z-index: 9998; }
 
         .login-box, .registro-box {
             background: white;
@@ -50,44 +39,18 @@
             max-width: 450px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             animation: fadeInUp 0.5s ease;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        .login-box h1, .registro-box h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 28px;
-        }
+        .login-box h1, .registro-box h1 { text-align: center; color: #333; margin-bottom: 10px; font-size: 28px; }
+        .login-box .subtitle, .registro-box .subtitle { text-align: center; color: #666; margin-bottom: 30px; font-size: 14px; }
+        .logo { text-align: center; font-size: 48px; margin-bottom: 20px; }
 
-        .login-box .subtitle, .registro-box .subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 14px;
-        }
-
-        .logo {
-            text-align: center;
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-
-        .form-group-login {
-            margin-bottom: 20px;
-        }
-
-        .form-group-login label {
-            display: block;
-            margin-bottom: 8px;
-            color: #555;
-            font-weight: 500;
-        }
-
+        .form-group-login { margin-bottom: 20px; }
+        .form-group-login label { display: block; margin-bottom: 8px; color: #555; font-weight: 500; }
         .form-group-login input, .form-group-login select {
             width: 100%;
             padding: 12px 15px;
@@ -96,17 +59,9 @@
             font-size: 15px;
             transition: all 0.3s ease;
         }
+        .form-group-login input:focus, .form-group-login select:focus { outline: none; border-color: #667eea; }
 
-        .form-group-login input:focus, .form-group-login select:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .password-hint {
-            font-size: 12px;
-            color: #666;
-            margin-top: 5px;
-        }
+        .password-hint { font-size: 12px; color: #666; margin-top: 5px; }
 
         .btn-login, .btn-registro {
             width: 100%;
@@ -122,68 +77,21 @@
             margin-top: 10px;
         }
 
-        .btn-login:hover, .btn-registro:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
-        }
+        .btn-login:hover, .btn-registro:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4); }
 
-        .error-message {
-            background: #fed7d7;
-            color: #c53030;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 14px;
-            display: none;
-        }
-
+        .error-message { background: #fed7d7; color: #c53030; padding: 10px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-size: 14px; display: none; }
         .error-message.show { display: block; }
 
-        .success-message {
-            background: #c6f6d5;
-            color: #22543d;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 14px;
-            display: none;
-        }
-
+        .success-message { background: #c6f6d5; color: #22543d; padding: 10px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-size: 14px; display: none; }
         .success-message.show { display: block; }
 
-        .link-cadastro, .link-login {
-            text-align: center;
-            margin-top: 20px;
-            color: #666;
-            font-size: 14px;
-        }
-
-        .link-cadastro a, .link-login a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
+        .link-cadastro, .link-login { text-align: center; margin-top: 20px; color: #666; font-size: 14px; }
+        .link-cadastro a, .link-login a { color: #667eea; text-decoration: none; font-weight: 600; cursor: pointer; }
         .link-cadastro a:hover, .link-login a:hover { text-decoration: underline; }
 
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .user-info span {
-            color: #555;
-            font-size: 14px;
-        }
-
-        .user-info .user-name {
-            font-weight: 600;
-            color: #667eea;
-        }
+        .user-info { display: flex; align-items: center; gap: 15px; }
+        .user-info span { color: #555; font-size: 14px; }
+        .user-info .user-name { font-weight: 600; color: #667eea; }
 
         .btn-logout {
             padding: 8px 15px;
@@ -195,11 +103,7 @@
             font-size: 13px;
             transition: all 0.3s ease;
         }
-
-        .btn-logout:hover {
-            background: #e53e3e;
-            transform: translateY(-1px);
-        }
+        .btn-logout:hover { background: #e53e3e; transform: translateY(-1px); }
 
         .main-app { display: none; }
         .main-app.show { display: block; }
@@ -217,13 +121,7 @@
             gap: 15px;
         }
 
-        .header h1 {
-            color: #333;
-            font-size: 26px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+        .header h1 { color: #333; font-size: 26px; display: flex; align-items: center; gap: 10px; }
 
         .tabs {
             display: flex;
@@ -247,21 +145,13 @@
             color: #666;
         }
 
-        .tab-btn.active {
-            background: #667eea;
-            color: white;
-            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
-        }
-
+        .tab-btn.active { background: #667eea; color: white; box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3); }
         .tab-btn:hover:not(.active) { background: #e0e0e0; }
 
         .tab-content { display: none; }
         .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .btn {
             padding: 10px 20px;
@@ -283,30 +173,12 @@
         .btn-danger { background: #f56565; color: white; }
         .btn-danger:hover { background: #e53e3e; transform: translateY(-2px); }
 
-        .panel {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
+        .panel { background: white; border-radius: 15px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
 
-        .panel-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
+        .panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
         .panel-header h2 { color: #333; font-size: 22px; }
 
-        .search-bar {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
+        .search-bar { display: flex; gap: 10px; flex-wrap: wrap; }
         .search-bar input {
             padding: 10px 15px;
             border: 2px solid #e0e0e0;
@@ -315,7 +187,6 @@
             width: 280px;
             transition: border-color 0.3s ease;
         }
-
         .search-bar input:focus { outline: none; border-color: #667eea; }
 
         .stats-card {
@@ -328,30 +199,14 @@
             display: inline-block;
             min-width: 200px;
         }
-
         .stats-card h3 { font-size: 32px; margin-bottom: 5px; }
         .stats-card p { font-size: 14px; opacity: 0.9; }
 
         .table-wrapper { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; }
         thead { background: #f8f9fa; border-bottom: 2px solid #dee2e6; }
-
-        th {
-            padding: 12px 15px;
-            text-align: left;
-            font-weight: 600;
-            color: #555;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #eee;
-            color: #666;
-        }
-
+        th { padding: 12px 15px; text-align: left; font-weight: 600; color: #555; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+        td { padding: 12px 15px; border-bottom: 1px solid #eee; color: #666; }
         tbody tr:hover { background: #f8f9fa; }
         .actions { display: flex; gap: 6px; }
 
@@ -364,25 +219,12 @@
             transition: all 0.2s ease;
             color: white;
         }
-
         .btn-edit { background: #4299e1; }
         .btn-edit:hover { background: #3182ce; }
         .btn-delete { background: #f56565; }
         .btn-delete:hover { background: #e53e3e; }
 
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
         .modal.active { display: flex; }
 
         .modal-content {
@@ -396,37 +238,14 @@
             animation: slideIn 0.3s ease;
         }
 
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
         .modal-header h2 { color: #333; }
-
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 26px;
-            cursor: pointer;
-            color: #999;
-            transition: color 0.2s ease;
-        }
-
+        .close-btn { background: none; border: none; font-size: 26px; cursor: pointer; color: #999; transition: color 0.2s ease; }
         .close-btn:hover { color: #333; }
 
         .form-group { margin-bottom: 18px; }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 6px;
-            color: #555;
-            font-weight: 500;
-        }
-
-        .form-group input,
-        .form-group select {
+        .form-group label { display: block; margin-bottom: 6px; color: #555; font-weight: 500; }
+        .form-group input, .form-group select {
             width: 100%;
             padding: 10px 14px;
             border: 2px solid #e0e0e0;
@@ -434,25 +253,10 @@
             font-size: 14px;
             transition: border-color 0.3s ease;
         }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: #667eea; }
 
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .form-actions {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-            margin-top: 20px;
-        }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .form-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
 
         .notification {
             position: fixed;
@@ -466,15 +270,11 @@
             animation: slideIn 0.3s ease;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
-
         .notification.success { background: #48bb78; }
         .notification.error { background: #f56565; }
         .notification.info { background: #4299e1; }
 
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
         @media (max-width: 768px) {
             .header { flex-direction: column; text-align: center; }
@@ -494,9 +294,7 @@
             <div class="logo">🔐</div>
             <h1>ACPADESB</h1>
             <div class="subtitle">Sistema de Cadastro</div>
-
             <div id="loginError" class="error-message"></div>
-
             <form id="loginForm">
                 <div class="form-group-login">
                     <label>Usuário</label>
@@ -505,17 +303,6 @@
                 <div class="form-group-login">
                     <label>Senha (3 caracteres)</label>
                     <input type="password" id="loginPassword" placeholder="Digite sua senha (3 caracteres)" maxlength="3" required autocomplete="current-password">
-                </div>
-                <div class="form-group-login">
-                    <label>Departamento</label>
-                    <select id="loginDepartamento">
-                        <option value="">Selecione um departamento...</option>
-                        <option value="infantil">Infantil</option>
-                        <option value="adolescentes">Adolescentes</option>
-                    </select>
-                    <div style="font-size: 12px; color: #666; margin-top: 5px;">
-                        ⚠️ Apenas para usuários com perfil "Líder Regional"
-                    </div>
                 </div>
                 <button type="submit" class="btn-login">Entrar</button>
             </form>
@@ -531,10 +318,8 @@
             <div class="logo">📝</div>
             <h1>Criar Conta</h1>
             <div class="subtitle">Preencha os dados para se cadastrar</div>
-
             <div id="registroError" class="error-message"></div>
             <div id="registroSuccess" class="success-message"></div>
-
             <form id="registroForm">
                 <div class="form-group-login">
                     <label>Usuário *</label>
@@ -542,7 +327,7 @@
                 </div>
                 <div class="form-group-login">
                     <label>Tipo de Perfil *</label>
-                    <select id="regPerfil">
+                    <select id="regPerfil" onchange="toggleCongregacaoField()">
                         <option value="secretario">Secretário</option>
                         <option value="lider regional">Líder Regional</option>
                         <option value="lider local">Líder Local</option>
@@ -556,10 +341,19 @@
                         <option value="infantil">Infantil</option>
                         <option value="adolescentes">Adolescentes</option>
                     </select>
+                </div>
+
+                <!-- CAMPO DE CONGREGAÇÃO -->
+                <div class="form-group-login" id="divRegCongregacao">
+                    <label>Congregação *</label>
+                    <select id="regCongregacao" required>
+                        <option value="">Carregando congregações...</option>
+                    </select>
                     <div style="font-size: 12px; color: #666; margin-top: 5px;">
-                        ⚠️ Obrigatório para todos os perfis
+                        ⚠️ Obrigatório (exceto para Líder Regional)
                     </div>
                 </div>
+
                 <div class="form-group-login">
                     <label>Senha (3 caracteres) *</label>
                     <input type="password" id="regPassword" placeholder="Exatamente 3 caracteres" maxlength="3" required>
@@ -586,6 +380,7 @@
                     <span>👤 <span id="userName" class="user-name"></span></span>
                     <span>🔖 <span id="userPerfil"></span></span>
                     <span>🏷️ <span id="userDepartamento" style="color: #667eea; font-weight: 600;"></span></span>
+                    <span>⛪ <span id="userCongregacao" style="color: #667eea; font-weight: 600;"></span></span>
                     <button class="btn-logout" onclick="logout()">Sair</button>
                 </div>
                 <div>
@@ -596,6 +391,7 @@
             <div class="tabs" id="tabsContainer">
                 <button class="tab-btn active" data-tab="criancas" onclick="switchTab('criancas')">🧒 Crianças</button>
                 <button class="tab-btn" data-tab="adolescentes" onclick="switchTab('adolescentes')">🧑 Adolescentes</button>
+                <button class="tab-btn" data-tab="outros" onclick="switchTab('outros')">👥 Outros</button>
                 <button class="tab-btn" data-tab="congregacoes" onclick="switchTab('congregacoes')">⛪ Congregações</button>
             </div>
 
@@ -659,6 +455,39 @@
                                 </tr>
                             </thead>
                             <tbody id="tbodyAdolescentes">
+                                <tr><td colspan="6" style="text-align: center;">Carregando...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Painel OUTROS -->
+            <div id="tab-outros" class="tab-content">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2>Lista de Outros</h2>
+                        <div class="search-bar">
+                            <input type="text" id="searchOutros" placeholder="Buscar por nome..." onkeyup="buscarOutros()">
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <h3 id="totalOutros">0</h3>
+                        <p>Total de Outros</p>
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Data Nascimento</th>
+                                    <th>Idade</th>
+                                    <th>Congregação</th>
+                                    <th>Contato</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyOutros">
                                 <tr><td colspan="6" style="text-align: center;">Carregando...</td></tr>
                             </tbody>
                         </table>
@@ -822,6 +651,7 @@
 
         let listaAdolescentes = [];
         let listaCriancas = [];
+        let listaOutros = [];
         let listaCongregacoes = [];
         let abaAtual = 'criancas';
 
@@ -837,67 +667,75 @@
             'adolescentes': '🧑 Adolescentes'
         };
 
+        function normalizarDepartamento(dep) {
+            if (!dep) return '';
+            const d = String(dep).trim().toLowerCase();
+            if (d === 'infantil') return 'infantil';
+            if (d === 'adolescentes' || d === 'adolescente') return 'adolescentes';
+            return '';
+        }
+
         // ======================================================
         // CONTROLE DE ACESSO POR PERFIL E DEPARTAMENTO
         // ======================================================
         function podeEditar() {
             if (!usuarioAtual) return false;
             const perfil = usuarioAtual.perfil;
-            // Secretário e líder local editam; líder regional e "outro" só visualizam
             return perfil === 'secretario' || perfil === 'lider local';
         }
 
         function aplicarRestricoesAcesso() {
-            if (!usuarioAtual) return;
+    if (!usuarioAtual) return;
 
-            const tabsContainer = document.getElementById('tabsContainer');
-            const btnCriancas = tabsContainer.querySelector('[data-tab="criancas"]');
-            const btnAdolescentes = tabsContainer.querySelector('[data-tab="adolescentes"]');
-            const btnCongregacoes = tabsContainer.querySelector('[data-tab="congregacoes"]');
-            const btnNovo = document.getElementById('btnNovo');
-            const btnMigrar = document.getElementById('btnMigrar');
+    const tabsContainer = document.getElementById('tabsContainer');
+    const btnCriancas = tabsContainer.querySelector('[data-tab="criancas"]');
+    const btnAdolescentes = tabsContainer.querySelector('[data-tab="adolescentes"]');
+    const btnOutros = tabsContainer.querySelector('[data-tab="outros"]');
+    const btnCongregacoes = tabsContainer.querySelector('[data-tab="congregacoes"]');
+    const btnNovo = document.getElementById('btnNovo');
+    const btnMigrar = document.getElementById('btnMigrar');
 
-            const perfil = usuarioAtual.perfil;
-            const departamento = usuarioAtual.departamento;
+    const perfil = usuarioAtual.perfil;
+    const departamento = normalizarDepartamento(usuarioAtual.departamento);
 
-            // Reset padrão (visível)
-            btnCriancas.style.display = 'inline-block';
-            btnAdolescentes.style.display = 'inline-block';
-            btnCongregacoes.style.display = 'inline-block';
-            btnNovo.style.display = 'inline-flex';
-            if (btnMigrar) btnMigrar.style.display = 'inline-flex';
+    // Primeiro, garante que TODOS os botões fiquem visíveis por padrão
+    btnCriancas.style.display = 'inline-block';
+    btnAdolescentes.style.display = 'inline-block';
+    btnOutros.style.display = 'inline-block'; // <--- Mostra a aba Outros por padrão
+    btnCongregacoes.style.display = 'inline-block';
 
-            if (perfil === 'lider local') {
-                if (departamento === 'infantil') {
-                    btnAdolescentes.style.display = 'none';
-                    btnCongregacoes.style.display = 'none';
-                    if (abaAtual !== 'criancas') switchTab('criancas');
-                } else if (departamento === 'adolescentes') {
-                    btnCriancas.style.display = 'none';
-                    btnCongregacoes.style.display = 'none';
-                    if (abaAtual !== 'adolescentes') switchTab('adolescentes');
-                } else {
-                    // Sem departamento — bloqueia tudo
-                    btnCriancas.style.display = 'none';
-                    btnAdolescentes.style.display = 'none';
-                    btnCongregacoes.style.display = 'none';
-                    btnNovo.style.display = 'none';
-                    notificar('Seu usuário não tem departamento definido. Contate o administrador.', 'error');
-                }
-                // Líder local não migra
-                if (btnMigrar) btnMigrar.style.display = 'none';
+    btnNovo.style.display = 'inline-flex';
+    if (btnMigrar) btnMigrar.style.display = 'inline-flex';
 
-            } else if (perfil === 'outro') {
-                // Somente visualização
-                btnNovo.style.display = 'none';
-                if (btnMigrar) btnMigrar.style.display = 'none';
-
-            } else if (perfil === 'lider regional') {
-                // Líder regional: vê tudo, mas não migra
-                if (btnMigrar) btnMigrar.style.display = 'none';
-            }
+    // Agora aplica as regras específicas por perfil
+    if (perfil === 'lider local') {
+        if (departamento === 'infantil') {
+            btnAdolescentes.style.display = 'none';
+            btnOutros.style.display = 'none'; // Líder local Infantil não vê "Outros"
+            btnCongregacoes.style.display = 'none';
+            if (abaAtual !== 'criancas') switchTab('criancas');
+        } else if (departamento === 'adolescentes') {
+            btnCriancas.style.display = 'none';
+            btnOutros.style.display = 'none'; // Líder local Adolescente não vê "Outros"
+            btnCongregacoes.style.display = 'none';
+            if (abaAtual !== 'adolescentes') switchTab('adolescentes');
+        } else {
+            // Sem departamento, esconde tudo
+            btnCriancas.style.display = 'none';
+            btnAdolescentes.style.display = 'none';
+            btnOutros.style.display = 'none';
+            btnCongregacoes.style.display = 'none';
+            btnNovo.style.display = 'none';
+            notificar('Seu usuário não tem departamento válido. Contate o administrador.', 'error');
         }
-
+        if (btnMigrar) btnMigrar.style.display = 'none';
+    } else if (perfil === 'outro') {
+        btnNovo.style.display = 'none';
+        if (btnMigrar) btnMigrar.style.display = 'none';
+    } else if (perfil === 'lider regional') {
+        if (btnMigrar) btnMigrar.style.display = 'none';
+    }
+}
         // ======================================================
         // NAVEGAÇÃO LOGIN / REGISTRO
         // ======================================================
@@ -906,6 +744,7 @@
             document.getElementById('registroContainer').style.display = 'flex';
             document.getElementById('registroError').classList.remove('show');
             document.getElementById('registroSuccess').classList.remove('show');
+            carregarCongregacoesParaRegistro();
         }
 
         function mostrarLogin() {
@@ -914,12 +753,47 @@
             document.getElementById('loginError').classList.remove('show');
         }
 
+        function toggleCongregacaoField() {
+            const perfil = document.getElementById('regPerfil').value;
+            const divCong = document.getElementById('divRegCongregacao');
+            const selectCong = document.getElementById('regCongregacao');
+
+            if (perfil !== 'lider regional') {
+                divCong.style.display = 'block';
+                selectCong.required = true;
+            } else {
+                divCong.style.display = 'none';
+                selectCong.required = false;
+                selectCong.value = '';
+            }
+        }
+
+        async function carregarCongregacoesParaRegistro() {
+            try {
+                const select = document.getElementById('regCongregacao');
+                select.innerHTML = '<option value="">Carregando...</option>';
+
+                const response = await fetch(`${API_URL}/congregacoes/`);
+                if (!response.ok) throw new Error('Falha ao carregar');
+
+                const congregacoes = await response.json();
+                select.innerHTML = '<option value="">Selecione uma congregação...</option>';
+                congregacoes.forEach(c => {
+                    select.innerHTML += `<option value="${c.nome}">${c.nome}</option>`;
+                });
+            } catch (error) {
+                console.error('Erro ao carregar congregações para registro:', error);
+                document.getElementById('regCongregacao').innerHTML = '<option value="">Erro ao carregar</option>';
+            }
+        }
+
         async function criarConta(event) {
             event.preventDefault();
 
             const username = document.getElementById('regUsername').value.trim();
             const perfil = document.getElementById('regPerfil').value;
             const departamento = document.getElementById('regDepartamento').value;
+            const congregacao = document.getElementById('regCongregacao').value;
             const password = document.getElementById('regPassword').value;
             const confirmar_senha = document.getElementById('regConfirmPassword').value;
 
@@ -930,17 +804,18 @@
                 showRegistroError('Usuário deve ter pelo menos 3 caracteres');
                 return;
             }
-
             if (!departamento) {
                 showRegistroError('Selecione um departamento');
                 return;
             }
-
+            if (perfil !== 'lider regional' && !congregacao) {
+                showRegistroError('Selecione uma congregação');
+                return;
+            }
             if (!password || password.length !== 3) {
                 showRegistroError('Senha deve ter exatamente 3 caracteres');
                 return;
             }
-
             if (password !== confirmar_senha) {
                 showRegistroError('As senhas não coincidem');
                 return;
@@ -950,7 +825,14 @@
                 const response = await fetch(`${API_URL}/auth/criar-conta`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password, confirmar_senha, perfil, departamento })
+                    body: JSON.stringify({
+                        username,
+                        password,
+                        confirmar_senha,
+                        perfil,
+                        departamento,
+                        congregacao: perfil === 'lider regional' ? null : congregacao
+                    })
                 });
 
                 const data = await response.json();
@@ -958,6 +840,7 @@
                 if (data.success) {
                     showRegistroSuccess('Conta criada com sucesso! Redirecionando para o login...');
                     document.getElementById('registroForm').reset();
+                    toggleCongregacaoField();
                     setTimeout(() => {
                         mostrarLogin();
                         document.getElementById('loginUsername').value = username;
@@ -1001,14 +884,10 @@
         // ======================================================
         async function fazerLogin(username, password) {
             try {
-                const departamento = document.getElementById('loginDepartamento').value;
-                const body = { username, password };
-                if (departamento) body.departamento = departamento;
-
                 const response = await fetch(`${API_URL}/auth/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(body)
+                    body: JSON.stringify({ username, password })
                 });
 
                 const data = await response.json();
@@ -1016,6 +895,8 @@
                 if (data.success) {
                     token = data.token;
                     usuarioAtual = data.usuario;
+                    usuarioAtual.departamento = normalizarDepartamento(usuarioAtual.departamento);
+
                     localStorage.setItem('token', token);
                     localStorage.setItem('usuario', JSON.stringify(usuarioAtual));
 
@@ -1039,6 +920,11 @@
         function logout() {
             token = null;
             usuarioAtual = null;
+            listaCriancas = [];
+            listaAdolescentes = [];
+            listaOutros = [];
+            listaCongregacoes = [];
+            abaAtual = 'criancas';
             localStorage.removeItem('token');
             localStorage.removeItem('usuario');
             showLogin();
@@ -1066,13 +952,16 @@
 
                 const data = await response.json();
 
-                if (data.authenticated) {
+                if (data.authenticated && data.perfil) {
                     token = storedToken;
                     usuarioAtual = JSON.parse(localStorage.getItem('usuario') || '{}');
-                    // fallback dos dados do token
-                    usuarioAtual.perfil = usuarioAtual.perfil || data.perfil;
-                    usuarioAtual.departamento = usuarioAtual.departamento || data.departamento;
-                    usuarioAtual.username = usuarioAtual.username || data.username;
+
+                    usuarioAtual.perfil = data.perfil || usuarioAtual.perfil;
+                    usuarioAtual.departamento = normalizarDepartamento(data.departamento) || normalizarDepartamento(usuarioAtual.departamento);
+                    usuarioAtual.username = data.username || usuarioAtual.username;
+                    usuarioAtual.congregacao = data.congregacao || usuarioAtual.congregacao;
+
+                    localStorage.setItem('usuario', JSON.stringify(usuarioAtual));
 
                     atualizarHeaderUsuario();
                     showMainApp();
@@ -1080,11 +969,11 @@
                     carregarTodosDados();
                     return true;
                 } else {
-                    showLogin();
+                    logout();
                     return false;
                 }
             } catch (error) {
-                showLogin();
+                logout();
                 return false;
             }
         }
@@ -1102,6 +991,15 @@
                 deptEl.textContent = '';
                 deptEl.style.display = 'none';
             }
+
+            const congEl = document.getElementById('userCongregacao');
+            if (usuarioAtual.congregacao) {
+                congEl.textContent = usuarioAtual.congregacao;
+                congEl.parentElement.style.display = 'inline';
+            } else {
+                congEl.textContent = '';
+                congEl.parentElement.style.display = 'none';
+            }
         }
 
         // ======================================================
@@ -1109,7 +1007,7 @@
         // ======================================================
         async function carregarTodosDados() {
             const perfil = usuarioAtual?.perfil;
-            const departamento = usuarioAtual?.departamento;
+            const departamento = normalizarDepartamento(usuarioAtual?.departamento);
 
             if (perfil === 'lider local' && departamento === 'infantil') {
                 await carregarCriancas();
@@ -1125,6 +1023,7 @@
 
             await carregarCriancas();
             await carregarAdolescentes();
+            await carregarOutros();
             await carregarCongregacoes();
             await carregarSelectCongregacoes();
         }
@@ -1133,6 +1032,11 @@
             const btnNovo = document.getElementById('btnNovo');
             if (!podeEditar()) { btnNovo.style.display = 'none'; return; }
 
+            if (usuarioAtual?.perfil === 'lider local' && abaAtual === 'congregacoes') {
+                btnNovo.style.display = 'none';
+                return;
+            }
+
             btnNovo.style.display = 'inline-flex';
             if (abaAtual === 'criancas') {
                 btnNovo.innerHTML = '➕ Nova Criança';
@@ -1140,6 +1044,9 @@
             } else if (abaAtual === 'adolescentes') {
                 btnNovo.innerHTML = '➕ Novo Adolescente';
                 btnNovo.setAttribute('onclick', "abrirModalPessoa(null, 'adolescentes')");
+            } else if (abaAtual === 'outros') {
+                btnNovo.innerHTML = '➕ Novo Outro';
+                btnNovo.setAttribute('onclick', "abrirModalPessoa(null, 'outros')");
             } else {
                 btnNovo.innerHTML = '➕ Nova Congregação';
                 btnNovo.setAttribute('onclick', "abrirModalCongregacao(null)");
@@ -1147,10 +1054,10 @@
         }
 
         function switchTab(aba) {
-            // Se o usuário não pode ver a aba, bloqueia
             if (usuarioAtual?.perfil === 'lider local') {
-                const dep = usuarioAtual.departamento;
-                if (aba === 'congregacoes') return;
+                const dep = normalizarDepartamento(usuarioAtual.departamento);
+                if (!dep) return;
+                if (aba === 'congregacoes' || aba === 'outros') return;
                 if (dep === 'infantil' && aba === 'adolescentes') return;
                 if (dep === 'adolescentes' && aba === 'criancas') return;
             }
@@ -1160,6 +1067,7 @@
             botoes.forEach(btn => btn.classList.remove('active'));
             document.getElementById('tab-criancas').classList.remove('active');
             document.getElementById('tab-adolescentes').classList.remove('active');
+            document.getElementById('tab-outros').classList.remove('active');
             document.getElementById('tab-congregacoes').classList.remove('active');
 
             if (aba === 'criancas') {
@@ -1168,6 +1076,9 @@
             } else if (aba === 'adolescentes') {
                 document.querySelector('[data-tab="adolescentes"]').classList.add('active');
                 document.getElementById('tab-adolescentes').classList.add('active');
+            } else if (aba === 'outros') {
+                document.querySelector('[data-tab="outros"]').classList.add('active');
+                document.getElementById('tab-outros').classList.add('active');
             } else {
                 document.querySelector('[data-tab="congregacoes"]').classList.add('active');
                 document.getElementById('tab-congregacoes').classList.add('active');
@@ -1187,6 +1098,51 @@
                 throw new Error('Sessão expirada');
             }
             return response;
+        }
+
+        // ======================================================
+        // OUTROS
+        // ======================================================
+        async function carregarOutros() {
+            try {
+                const response = await fetchWithAuth(`${API_URL}/outros/`);
+                listaOutros = await response.json();
+                atualizarTabelaOutros();
+                document.getElementById('totalOutros').textContent = listaOutros.length;
+            } catch (error) {
+                console.error('Erro ao carregar outros:', error);
+                notificar('Erro ao carregar outros', 'error');
+            }
+        }
+
+        function atualizarTabelaOutros(dados = listaOutros) {
+            const tbody = document.getElementById('tbodyOutros');
+            if (dados.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">Nenhum registro encontrado</td></tr>';
+                return;
+            }
+            tbody.innerHTML = dados.map(o => {
+                const idade = calcularIdade(o.data_nasc);
+                const acoesHtml = podeEditar()
+                    ? `<button class="btn-icon btn-edit" onclick="abrirModalPessoa(${o.id}, 'outros')">✏️</button>
+                       <button class="btn-icon btn-delete" onclick="deletar(${o.id}, 'outros')">🗑️</button>`
+                    : '<span style="color:#999;">—</span>';
+                return `
+                    <tr>
+                        <td>${o.nome || ''}</td>
+                        <td>${formatarData(o.data_nasc)}</td>
+                        <td>${idade}</td>
+                        <td>${o.congregacao || '-'}</td>
+                        <td>${o.contato || '-'}</td>
+                        <td class="actions">${acoesHtml}</td>
+                    </tr>`;
+            }).join('');
+        }
+
+        function buscarOutros() {
+            const termo = document.getElementById('searchOutros').value.toLowerCase();
+            const filtrados = listaOutros.filter(o => o.nome && o.nome.toLowerCase().includes(termo));
+            atualizarTabelaOutros(filtrados);
         }
 
         // ======================================================
@@ -1404,7 +1360,11 @@
             document.getElementById('pessoaDataNasc').max = new Date().toISOString().split('T')[0];
 
             if (id) {
-                const item = tipoAtual === 'adolescentes' ? listaAdolescentes.find(x => x.id === id) : listaCriancas.find(x => x.id === id);
+                let item;
+                if (tipoAtual === 'adolescentes') item = listaAdolescentes.find(x => x.id === id);
+                else if (tipoAtual === 'outros') item = listaOutros.find(x => x.id === id);
+                else item = listaCriancas.find(x => x.id === id);
+
                 if (item) {
                     document.getElementById('pessoaId').value = item.id;
                     document.getElementById('pessoaNome').value = item.nome || '';
@@ -1417,9 +1377,14 @@
                     document.getElementById('pessoaCongregacao').value = item.congregacao || '';
                     document.getElementById('pessoaEndereco').value = item.endereco || '';
                 }
-                document.getElementById('modalPessoaTitulo').textContent = tipoAtual === 'adolescentes' ? 'Editar Adolescente' : 'Editar Criança';
+
+                if (tipoAtual === 'adolescentes') document.getElementById('modalPessoaTitulo').textContent = 'Editar Adolescente';
+                else if (tipoAtual === 'outros') document.getElementById('modalPessoaTitulo').textContent = 'Editar Outro';
+                else document.getElementById('modalPessoaTitulo').textContent = 'Editar Criança';
             } else {
-                document.getElementById('modalPessoaTitulo').textContent = tipoAtual === 'adolescentes' ? 'Novo Adolescente' : 'Nova Criança';
+                if (tipoAtual === 'adolescentes') document.getElementById('modalPessoaTitulo').textContent = 'Novo Adolescente';
+                else if (tipoAtual === 'outros') document.getElementById('modalPessoaTitulo').textContent = 'Novo Outro';
+                else document.getElementById('modalPessoaTitulo').textContent = 'Nova Criança';
             }
             document.getElementById('modalPessoa').classList.add('active');
         }
@@ -1455,7 +1420,6 @@
             document.getElementById(modalId).classList.remove('active');
         }
 
-        // "abrirModal" usada pelo botão #btnNovo (compatibilidade)
         function abrirModal() {
             if (abaAtual === 'congregacoes') {
                 abrirModalCongregacao(null);
@@ -1469,12 +1433,16 @@
                 notificar('Você não tem permissão para excluir cadastros.', 'error');
                 return;
             }
-            if (!confirm(`Tem certeza que deseja deletar ${tipo === 'adolescentes' ? 'este adolescente' : 'esta criança'}?`)) return;
+            const msg = tipo === 'adolescentes' ? 'este adolescente' : (tipo === 'outros' ? 'este outro' : 'esta criança');
+            if (!confirm(`Tem certeza que deseja deletar ${msg}?`)) return;
+
             try {
-                const endpoint = tipo === 'adolescentes' ? 'adolescentes' : 'criancas';
+                const endpoint = tipo === 'adolescentes' ? 'adolescentes' : (tipo === 'outros' ? 'outros' : 'criancas');
                 await fetchWithAuth(`${API_URL}/${endpoint}/${id}`, { method: 'DELETE' });
-                notificar(`${tipo === 'adolescentes' ? 'Adolescente' : 'Criança'} deletado!`, 'success');
+                notificar('Registro deletado!', 'success');
+
                 if (tipo === 'adolescentes') carregarAdolescentes();
+                else if (tipo === 'outros') carregarOutros();
                 else carregarCriancas();
             } catch (error) {
                 notificar('Erro ao deletar', 'error');
@@ -1516,7 +1484,8 @@
 
             const id = document.getElementById('pessoaId').value;
             const tipo = document.getElementById('pessoaTipo').value;
-            const endpoint = tipo === 'adolescentes' ? 'adolescentes' : 'criancas';
+            const endpoint = tipo === 'adolescentes' ? 'adolescentes' : (tipo === 'outros' ? 'outros' : 'criancas');
+
             const data = {
                 nome: document.getElementById('pessoaNome').value,
                 data_nasc: document.getElementById('pessoaDataNasc').value,
@@ -1528,14 +1497,17 @@
                 congregacao: document.getElementById('pessoaCongregacao').value,
                 endereco: document.getElementById('pessoaEndereco').value
             };
+
             try {
                 const url = id ? `${API_URL}/${endpoint}/${id}` : `${API_URL}/${endpoint}/`;
                 const method = id ? 'PUT' : 'POST';
                 const response = await fetchWithAuth(url, { method, body: JSON.stringify(data) });
+
                 if (response.ok) {
                     notificar(id ? 'Registro atualizado!' : 'Registro cadastrado!', 'success');
                     fecharModal('modalPessoa');
                     if (tipo === 'adolescentes') carregarAdolescentes();
+                    else if (tipo === 'outros') carregarOutros();
                     else carregarCriancas();
                 } else {
                     const erro = await response.text();
@@ -1595,6 +1567,8 @@
 
         document.getElementById('registroForm').addEventListener('submit', criarConta);
 
+        // Inicialização
+        toggleCongregacaoField();
         verificarToken();
 
         window.onclick = function(event) {

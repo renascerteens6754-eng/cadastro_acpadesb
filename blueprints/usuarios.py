@@ -89,6 +89,7 @@ def login():
 
         perfil = usuario.get('perfil', 'outro')
         departamento = usuario.get('departamento', '')
+        congregacao = usuario.get('congregacao', '') # <--- NOVO CAMPO AQUI
 
         # Gerar token JWT
         token = jwt.encode({
@@ -96,10 +97,11 @@ def login():
             'username': usuario.get('username'),
             'perfil': perfil,
             'departamento': departamento,
+            'congregacao': congregacao, # <--- NOVO CAMPO AQUI
             'exp': datetime.utcnow() + timedelta(hours=8)
         }, SECRET_KEY, algorithm='HS256')
 
-        print(f"✅ Login bem-sucedido: {username} - Perfil: {perfil} - Departamento: {departamento or 'N/A'}")
+        print(f"✅ Login bem-sucedido: {username} - Perfil: {perfil} - Departamento: {departamento or 'N/A'} - Congregação: {congregacao or 'N/A'}")
         print("=" * 50)
 
         usuario_sem_senha = {k: v for k, v in usuario.items() if k != 'password'}
@@ -110,7 +112,8 @@ def login():
             "token": token,
             "usuario": usuario_sem_senha,
             "perfil": perfil,
-            "departamento": departamento
+            "departamento": departamento,
+            "congregacao": congregacao # <--- NOVO CAMPO AQUI
         }), 200
 
     except Exception as e:
@@ -141,10 +144,12 @@ def criar_conta():
         confirmar_senha = data.get('confirmar_senha', '')
         perfil = data.get('perfil', 'outro')
         departamento = data.get('departamento', '')
+        congregacao = data.get('congregacao', '') # <--- NOVO CAMPO AQUI
 
         print(f"📌 Usuário solicitado: {username}")
         print(f"📌 Perfil solicitado: {perfil}")
         print(f"📌 Departamento solicitado: {departamento}")
+        print(f"📌 Congregação solicitada: {congregacao}")
 
         # Validações básicas
         if not username or not password:
@@ -190,6 +195,15 @@ def criar_conta():
                 "message": "Departamento inválido. Valores permitidos: infantil, adolescentes"
             }), 400
 
+        # REGRA NOVA: Líder regional NÃO tem congregação vinculada
+        if perfil == 'lider regional':
+            congregacao = None
+        elif not congregacao:
+             return jsonify({
+                "success": False,
+                "message": "Congregação é obrigatória para este perfil"
+            }), 400
+
         supabase = connect_db()
 
         # Verificar se usuário já existe
@@ -206,13 +220,14 @@ def criar_conta():
             "password": password,
             "perfil": perfil,
             "departamento": departamento if departamento else None,
+            "congregacao": congregacao, # <--- NOVO CAMPO AQUI
             "created_at": datetime.now().isoformat()
         }
 
         result = supabase.table("usuario").insert(novo_usuario).execute()
 
         if result.data:
-            print(f"✅ Conta criada com sucesso: {username} - Perfil: {perfil} - Departamento: {departamento or 'N/A'}")
+            print(f"✅ Conta criada com sucesso: {username} - Perfil: {perfil} - Departamento: {departamento or 'N/A'} - Congregação: {congregacao or 'N/A'}")
             print("=" * 50)
 
             usuario_criado = result.data[0]
@@ -262,7 +277,8 @@ def verificar_token():
             "usuario_id": payload.get('id'),
             "username": payload.get('username'),
             "perfil": payload.get('perfil'),
-            "departamento": payload.get('departamento', '')
+            "departamento": payload.get('departamento', ''),
+            "congregacao": payload.get('congregacao', '') # <--- NOVO CAMPO AQUI
         }), 200
 
     except jwt.ExpiredSignatureError:
@@ -346,7 +362,8 @@ def listar_usuarios():
             return jsonify({"success": False, "message": "Token inválido"}), 401
 
         supabase = connect_db()
-        resp = supabase.table("usuario").select("id, username, perfil, departamento, created_at").execute()
+        # Incluído congregacao no select
+        resp = supabase.table("usuario").select("id, username, perfil, departamento, congregacao, created_at").execute()
 
         return jsonify({
             "success": True,
@@ -476,7 +493,8 @@ def listar_usuarios_por_departamento(departamento):
             }), 400
 
         supabase = connect_db()
-        resp = supabase.table("usuario").select("id, username, perfil, departamento, created_at").eq("departamento", departamento).execute()
+        # Incluído congregacao no select
+        resp = supabase.table("usuario").select("id, username, perfil, departamento, congregacao, created_at").eq("departamento", departamento).execute()
 
         return jsonify({
             "success": True,
